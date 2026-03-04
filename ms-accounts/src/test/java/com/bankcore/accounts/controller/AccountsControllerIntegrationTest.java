@@ -65,12 +65,12 @@ public class AccountsControllerIntegrationTest extends AbstractIntegrationTest {
     private MockResponse buildCustomerResponse(boolean exists, boolean isActive) {
         return new MockResponse()
                 .setBody("""
-                {
-                    "id": "%s",
-                    "exists": %s,
-                    "isActive": %s
-                }
-                """.formatted(CUSTOMER_ID, exists, isActive))
+            {
+                "customerId": "%s",
+                "exist": %s,
+                "active": %s
+            }
+            """.formatted(CUSTOMER_ID, exists, isActive))
                 .addHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
     }
 
