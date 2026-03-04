@@ -31,9 +31,11 @@ public class CustomerClientImpl implements CustomerClient {
     @Override
     public CustomerResponse getCustomerById(UUID id) {
 
+
         CustomerResponse response = customersWebClient
                 .get()
-                .uri("/api/customers/{id}/validate", id)
+                .uri("/api/customers/{id}/validate", id.toString())
+                .header("X-Internal-Service", "ms-accounts")
                 .retrieve()
                 .onStatus(status -> status.value() == 404, clientResponse -> {
                     log.warn("Customer not found in Customer Service. ID: {}", id);

@@ -162,7 +162,6 @@ public class AccountController {
             ),
     })
     @GetMapping
-    @PreAuthorize("isFullyAuthenticated() && hasRole('CUSTOMER')")
     public ResponseEntity<List<UserAccountResponse>> getCustomerAccounts(Authentication auth) {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(accountManagementService.getCurrentUserAccounts(auth.getName()));

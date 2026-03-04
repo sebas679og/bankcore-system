@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.crypto.SecretKey;
 
+import com.bankcore.customers.controllers.filter.InternalServiceFilter;
 import com.bankcore.customers.exceptions.CustomAccessDeniedHandler;
 import com.bankcore.customers.exceptions.CustomAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Value;
@@ -78,7 +79,8 @@ public class SecurityConfig {
             CustomAuthenticationEntryPoint customAuthenticationEntryPoint,
             CustomAccessDeniedHandler customAccessDeniedHandler,
             CorsConfigurationSource corsConfigurationSource,
-            JwtAuthenticationFilter jwtAuthenticationFilter
+            JwtAuthenticationFilter jwtAuthenticationFilter,
+            InternalServiceFilter internalServiceFilter
     ) throws Exception {
 
         http
@@ -105,6 +107,7 @@ public class SecurityConfig {
                         .anyRequest().denyAll()
                 )
                 .authenticationProvider(provider())
+                .addFilterBefore(internalServiceFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
 
