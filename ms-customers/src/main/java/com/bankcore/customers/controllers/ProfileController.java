@@ -255,7 +255,7 @@ public class ProfileController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Returns whether the pin is valid or not",
+                    description = "Returns whether the client and the pin are registered",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = PinValidateResponse.class)
