@@ -253,14 +253,18 @@ public class UserManagementImpl implements UserManagement {
      * using {@link org.springframework.security.crypto.password.PasswordEncoder#matches(CharSequence, String)}.
      * </p>
      *
-     * <p>The comparison is performed securely against the encoded PIN, ensuring that
-     * the raw PIN value is never stored or compared in plain text.</p>
+     * <p>If the user exists, the provided PIN is securely compared against the stored
+     * encoded PIN. If the user does not exist, the method does not throw an exception;
+     * instead, the response indicates that the user was not found.</p>
      *
      * @param request the request containing the PIN to be validated.
      * @param customerId the unique identifier of the customer whose PIN will be validated.
-     * @return a {@link PinValidateResponse} indicating whether the provided PIN matches
-     * the stored encoded PIN.
-     * @throws UserProfileNotFoundException if no user exists with the provided {@code customerId}.
+     * @return a {@link PinValidateResponse} containing:
+     * <ul>
+     *     <li>{@code exists}: whether the user associated with the given {@code customerId} exists.</li>
+     *     <li>{@code valid}: whether the provided PIN matches the stored encoded PIN. This value
+     *     will be {@code false} if the user does not exist.</li>
+     * </ul>
      */
     @Override
     @Transactional(readOnly = true)
@@ -268,14 +272,16 @@ public class UserManagementImpl implements UserManagement {
 
         log.info("Obtaining customer pin for validation: {}", customerId);
 
-        UserEntity user = userRepository.findById(customerId)
-                .orElseThrow(() ->
-                        new UserProfileNotFoundException("User not found")
-                );
+        Optional<UserEntity> userOptional = userRepository.findById(customerId);
 
-        boolean isValid = passwordEncoder.matches(request.getPin(), user.getAtmPin());
+        boolean exists = userOptional.isPresent();
+
+        boolean isValid = userOptional
+                .map(user -> passwordEncoder.matches(request.getPin(), user.getAtmPin()))
+                .orElse(false);
 
         return PinValidateResponse.builder()
+                .exists(exists)
                 .valid(isValid)
                 .build();
     }

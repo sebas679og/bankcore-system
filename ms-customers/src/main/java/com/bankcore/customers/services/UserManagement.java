@@ -93,14 +93,23 @@ public interface UserManagement {
     CustomerValidateResponse getCustomerIsActive(UUID customerId);
 
     /**
-     * Validates the customer's PIN against the stored credential.
+     * Validates the customer's ATM PIN against the stored credential.
      *
-     * <p>The method retrieves the customer's PIN using the provided customer ID
-     * and compares it with the PIN received in the request.</p>
+     * <p>The method retrieves the user associated with the provided {@code customerId}
+     * and compares the PIN received in the request with the encrypted PIN stored
+     * in the system.</p>
+     *
+     * <p>If the user does not exist, the method does not throw an exception.
+     * Instead, the response indicates that the customer was not found.</p>
      *
      * @param request the request containing the PIN to validate
      * @param customerId the unique identifier of the customer
-     * @return a {@link PinValidateResponse} indicating whether the provided PIN is valid
+     * @return a {@link PinValidateResponse} containing:
+     * <ul>
+     *     <li>{@code exists}: whether a customer exists with the provided {@code customerId}</li>
+     *     <li>{@code valid}: whether the provided PIN matches the stored PIN. This value
+     *     will be {@code false} if the customer does not exist.</li>
+     * </ul>
      */
     PinValidateResponse getPinValidateCustomer(PinValidateRequest request, UUID customerId);
 }

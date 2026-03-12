@@ -224,13 +224,20 @@ public class ProfileController {
      * Validates the ATM PIN for a specific customer.
      *
      * <p>This endpoint receives a PIN provided by the client and verifies whether it
-     * matches the encrypted PIN stored for the given customer. The validation is
-     * delegated to the service layer.</p>
+     * matches the encrypted PIN stored for the given customer. The validation logic
+     * is delegated to the service layer.</p>
+     *
+     * <p>If the customer does not exist, the endpoint does not return an error.
+     * Instead, the response indicates that the customer was not found.</p>
      *
      * @param customerId the unique identifier of the customer whose PIN will be validated.
      * @param request the request body containing the PIN to validate.
-     * @return a {@link ResponseEntity} containing a {@link PinValidateResponse} that
-     * indicates whether the provided PIN is valid.
+     * @return a {@link ResponseEntity} containing a {@link PinValidateResponse} with:
+     * <ul>
+     *     <li>{@code exists}: whether a customer exists with the given {@code customerId}</li>
+     *     <li>{@code valid}: whether the provided PIN matches the stored PIN. This value
+     *     will be {@code false} if the customer does not exist.</li>
+     * </ul>
      */
     @PostMapping("/{customerId}/validate-pin")
     @Operation(
@@ -273,14 +280,6 @@ public class ProfileController {
             @ApiResponse(
                     responseCode = "403",
                     description = "Forbidden - The user does not have the SERVICE role",
-                    content = @Content(
-                            mediaType = MediaType.APPLICATION_JSON_VALUE,
-                            schema = @Schema(implementation = ErrorResponse.class)
-                    )
-            ),
-            @ApiResponse(
-                    responseCode = "404",
-                    description = "User not found - The user does not exist nor is registered in the database",
                     content = @Content(
                             mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ErrorResponse.class)
