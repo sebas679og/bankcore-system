@@ -347,6 +347,7 @@ public class ProfileControllerIntegrationTest extends AbstractIntegrationTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.exists").value(true))
                 .andExpect(jsonPath("$.valid").value(true));
     }
 
@@ -361,23 +362,23 @@ public class ProfileControllerIntegrationTest extends AbstractIntegrationTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.exists").value(true))
                 .andExpect(jsonPath("$.valid").value(false));
     }
 
     @Test
     @WithMockUser(roles = DataProvider.SERVICE_ROLE)
-    void shouldReturn404WhenUserDoesNotExist() throws Exception{
+    void shouldReturnFalseWhenUserDoesNotExist() throws Exception{
 
         PinValidateRequest request = DataProvider.createMockPinValidate("4576");
 
         mockMvc.perform(post("/api/customers/{id}/validate-pin", DataProvider.UUID)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isNotFound())
+                .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.code").value(HttpStatus.NOT_FOUND.value()))
-                .andExpect(jsonPath("$.name").value(HttpStatus.NOT_FOUND.getReasonPhrase()))
-                .andExpect(jsonPath("$.description").exists());
+                .andExpect(jsonPath("$.exists").value(false))
+                .andExpect(jsonPath("$.valid").value(false));
     }
 
     @Test

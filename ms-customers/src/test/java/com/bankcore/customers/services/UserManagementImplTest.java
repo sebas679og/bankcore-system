@@ -35,11 +35,15 @@ import com.bankcore.customers.utils.mappers.UserMapper;
 
 @ExtendWith(MockitoExtension.class)
 class UserManagementImplTest {
-    @Mock private UserRepository userRepository;
-    @Mock private PasswordEncoder passwordEncoder;
-    @Mock private UserMapper userMapper;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private PasswordEncoder passwordEncoder;
+    @Mock
+    private UserMapper userMapper;
 
-    @InjectMocks private UserManagementImpl userManagement;
+    @InjectMocks
+    private UserManagementImpl userManagement;
 
     private final RegisterRequest request =
             RegisterRequest.builder()
@@ -284,6 +288,7 @@ class UserManagementImplTest {
         PinValidateResponse response = userManagement
                 .getPinValidateCustomer(request, customerId);
 
+        assertTrue(response.isExists());
         assertTrue(response.isValid());
 
         verify(userRepository).findById(customerId);
@@ -308,6 +313,7 @@ class UserManagementImplTest {
         PinValidateResponse response = userManagement
                 .getPinValidateCustomer(request, customerId);
 
+        assertTrue(response.isExists());
         assertFalse(response.isValid());
 
         verify(userRepository).findById(customerId);
@@ -315,7 +321,7 @@ class UserManagementImplTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenUserNotFound() {
+    void shouldReturnExistsFalseWhenUserNotFound() {
 
         UUID customerId = UUID.randomUUID();
 
@@ -325,10 +331,11 @@ class UserManagementImplTest {
 
         when(userRepository.findById(customerId)).thenReturn(Optional.empty());
 
-        assertThrows(
-                UserProfileNotFoundException.class,
-                () -> userManagement.getPinValidateCustomer(request, customerId)
-        );
+        PinValidateResponse response = userManagement
+                .getPinValidateCustomer(request, customerId);
+
+        assertFalse(response.isExists());
+        assertFalse(response.isValid());
 
         verify(userRepository).findById(customerId);
         verifyNoInteractions(passwordEncoder);
