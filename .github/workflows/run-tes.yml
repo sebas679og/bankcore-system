@@ -4,6 +4,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Directive that forces the use of Node 24 in the actions to avoid deprecations.
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
 
   customers-service:

@@ -21,12 +21,12 @@ import lombok.Setter;
 @Builder
 public class AccountRegisterRequest {
 
-    @NotNull(message = "Customer ID is required")
+    @NotNull(message = "Account type is required")
     private AccountType accountType;
 
-    @NotNull(message = "Customer ID is required")
+    @NotNull(message = "Currency is required")
     private CurrencyCode currency;
 
-    @NotBlank(message = "Customer ID is required")
+    @NotBlank(message = "Alias is required")
     private String alias;
 }

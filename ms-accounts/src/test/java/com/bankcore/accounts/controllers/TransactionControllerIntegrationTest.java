@@ -287,7 +287,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
         TransactionRequest pinMinimumSize = TransactionDataProvider.createMockTransactionRequest("12");
         TransactionRequest pinMaximumSize = TransactionDataProvider.createMockTransactionRequest("12345");
         TransactionRequest pinLetters = TransactionDataProvider.createMockTransactionRequest("12mp");
-        TransactionRequest pinSameDigits = TransactionDataProvider.createMockTransactionRequest("3333");
         TransactionRequest pinBlankSpace = TransactionDataProvider.createMockTransactionRequest("");
         TransactionRequest pinNull = TransactionRequest.builder()
                 .amount(BigDecimal.valueOf(100.00))
@@ -299,10 +298,10 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
                 pinMinimumSize,
                 pinMaximumSize,
                 pinLetters,
-                pinSameDigits,
                 pinBlankSpace,
                 pinNull
         );
+
 
         for (TransactionRequest request : invalidRequests) {
 

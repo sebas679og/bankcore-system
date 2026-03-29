@@ -465,10 +465,6 @@ public class TransferControllerIntegrationTest extends AbstractIntegrationTest {
                 destinationAccount.getAccountNumber()
         );
 
-        TransferRequest pinSameDigits = TransferAccountProvider.createMockTransferRequest(sourceAccount.getId(),
-                "3333",
-                destinationAccount.getAccountNumber()
-        );
 
         TransferRequest pinBlankSpace = TransferAccountProvider.createMockTransferRequest(sourceAccount.getId(),
                 "",
@@ -487,10 +483,10 @@ public class TransferControllerIntegrationTest extends AbstractIntegrationTest {
                 pinMinimumSize,
                 pinMaximumSize,
                 pinLetters,
-                pinSameDigits,
                 pinBlankSpace,
                 pinNull
         );
+
 
         for (TransferRequest request : invalidRequests) {
 

@@ -7,6 +7,8 @@ on:
 env:
   REGISTRY: docker.io
   IMAGE_PREFIX: ${{ secrets.DOCKERHUB_USERNAME }}
+  # Directive that forces the use of Node 24 in the actions to avoid deprecations.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-customers:
