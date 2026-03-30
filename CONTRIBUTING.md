@@ -133,7 +133,7 @@ El proyecto sigue [Semantic Versioning](https://semver.org/). Antes de abrir un 
 Para actualizar la versión usa el plugin de Maven:
 
 ```bash
-./mvnw versions:set "-DnewVersion=0.2.0"
+./mvnw versions:set "-DnewVersion=0.2.0" "-DgenerateBackupPoms=false"
 git add pom.xml
 git commit -m "chore: bump version to 0.2.0"
 ```
