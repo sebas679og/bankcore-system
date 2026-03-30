@@ -32,8 +32,7 @@ jobs:
         id: vars
         working-directory: ./ms-customers
         run: |
-          chmod +x mvnw 2>/dev/null || true
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout 2>/dev/null)
+          VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout 2>/dev/null)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Detected version: $VERSION"
 
@@ -75,8 +74,7 @@ jobs:
         id: vars
         working-directory: ./ms-accounts
         run: |
-          chmod +x mvnw 2>/dev/null || true
-          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout 2>/dev/null)
+          VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout 2>/dev/null)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Detected version: $VERSION"
 
