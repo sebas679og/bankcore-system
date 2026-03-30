@@ -149,7 +149,7 @@ El workflow `.github/workflows/docker-build-push.yml` se dispara con cada push a
 1. Build y push de `ms-customers` al registry
 2. Build y push de `ms-accounts` al registry (requiere que el paso anterior haya terminado)
 
-Las imágenes se publican con dos tags: `:latest` y `:<git-sha-corto>`.
+Las imágenes se publican con dos tags: `:latest` y `:<version> (e.g. 0.7.1)`.
 
 ---
 
