@@ -120,6 +120,28 @@ Solo los mantenedores del proyecto abren PRs de `dev` a `main`. Al mergearse, el
 
 ---
 
+## Versionado
+
+El proyecto sigue [Semantic Versioning](https://semver.org/). Antes de abrir un PR, actualiza la versión en el `pom.xml` del microservicio afectado de acuerdo con el tipo de cambio:
+
+| Tipo de cambio | Bump | Ejemplo |
+|---|---|---|
+| Corrección de bug | Patch | `0.1.0 → 0.1.1` |
+| Nueva funcionalidad | Minor | `0.1.0 → 0.2.0` |
+| Cambio que rompe compatibilidad | Major | `0.1.0 → 1.0.0` |
+
+Para actualizar la versión usa el plugin de Maven:
+
+```bash
+./mvnw versions:set "-DnewVersion=0.2.0"
+git add pom.xml
+git commit -m "chore: bump version to 0.2.0"
+```
+
+> Este paso asegura que las imágenes Docker publicadas en el registry reflejen siempre la versión correcta del servicio.
+
+---
+
 ## CI/CD
 
 El workflow `.github/workflows/docker-build-push.yml` se dispara con cada push a `main` y ejecuta en orden:
