@@ -98,6 +98,46 @@ docs: actualizar variables de entorno en README
 
 ---
 
+## Linters y pruebas
+
+Antes de abrir cualquier PR es **obligatorio** ejecutar Spotless en local para garantizar que el código cumple con el estilo definido en el proyecto.
+
+### Spotless (formateo de código)
+
+Aplica el formatter automáticamente — **paso obligatorio antes de todo PR**:
+
+```bash
+./mvnw spotless:apply
+```
+
+Verifica que el código ya cumple con el formato sin modificarlo:
+
+```bash
+./mvnw spotless:check
+```
+
+> Si `spotless:check` falla en el pipeline, el PR será rechazado. Ejecuta siempre `spotless:apply` antes de hacer push para evitarlo.
+
+### Ejecutar solo las pruebas
+
+Corre las pruebas omitiendo la verificación de Spotless:
+
+```bash
+./mvnw -B clean verify "-Dspotless.check.skip=true"
+```
+
+### Linters + pruebas juntos
+
+Ejecuta el formatter y las pruebas en un solo paso:
+
+```bash
+./mvnw -B clean verify
+```
+
+> Se recomienda correr este comando antes de cada PR para confirmar que tanto el estilo como las pruebas pasan correctamente.
+
+---
+
 ## Pull Requests
 
 ### Desde `feat/` hacia `dev`
@@ -109,10 +149,11 @@ git fetch origin
 git rebase origin/dev
 ```
 
-2. Abre el PR en GitHub apuntando a `dev`.
-3. El título del PR debe seguir el mismo formato que los commits.
-4. Describe brevemente qué cambia y por qué.
-5. Asigna al menos un reviewer del equipo.
+2. Ejecuta linters y pruebas localmente (ver sección anterior) antes de abrir el PR.
+3. Abre el PR en GitHub apuntando a `dev`.
+4. El título del PR debe seguir el mismo formato que los commits.
+5. Describe brevemente qué cambia y por qué.
+6. Asigna al menos un reviewer del equipo.
 
 ### Desde `dev` hacia `main`
 
@@ -159,6 +200,7 @@ Las imágenes se publican con dos tags: `:latest` y `:<version> (e.g. 0.7.1)`.
 bankcore-system/
 ├── .github/
 │   └── workflows/                  # Pipelines de CI/CD
+│       ├── code-quality.yml   
 │       ├── docker-build-push.yml   
 │       └── run-tes.yml
 ├── docs/
