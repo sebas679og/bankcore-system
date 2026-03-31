@@ -1,59 +1,56 @@
 package com.bankcore.accounts.repositories;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.bankcore.accounts.AbstractIntegrationTest;
 import com.bankcore.accounts.AccountDataProvider;
 import com.bankcore.accounts.models.AccountEntity;
 import com.bankcore.accounts.models.AccountPinSecurity;
+import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Optional;
-import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class AccountPinSecurityRepositoryTest extends AbstractIntegrationTest {
 
-    @Autowired
-    AccountPinSecurityRepository accountPinSecurityRepository;
+  @Autowired AccountPinSecurityRepository accountPinSecurityRepository;
 
-    @Autowired
-    AccountRepository accountRepository;
+  @Autowired AccountRepository accountRepository;
 
-    @BeforeEach
-    void setUp() {
-        accountRepository.deleteAll();
-    }
+  @BeforeEach
+  void setUp() {
+    accountRepository.deleteAll();
+  }
 
-    @Test
-    void shouldFindPinSecurityByAccountId() {
-        AccountEntity account = accountRepository.save(AccountDataProvider.createMockAccount());
+  @Test
+  void shouldFindPinSecurityByAccountId() {
+    AccountEntity account = accountRepository.save(AccountDataProvider.createMockAccount());
 
-        Optional<AccountPinSecurity> result = accountPinSecurityRepository
-                .findByAccount_Id(account.getId());
+    Optional<AccountPinSecurity> result =
+        accountPinSecurityRepository.findByAccount_Id(account.getId());
 
-        assertTrue(result.isPresent());
-        assertEquals(account.getId(), result.get().getAccount().getId());
-    }
+    assertTrue(result.isPresent());
+    assertEquals(account.getId(), result.get().getAccount().getId());
+  }
 
-    @Test
-    void shouldReturnEmptyWhenAccountHasNoPinSecurity() {
-        Optional<AccountPinSecurity> result = accountPinSecurityRepository
-                .findByAccount_Id(UUID.randomUUID());
+  @Test
+  void shouldReturnEmptyWhenAccountHasNoPinSecurity() {
+    Optional<AccountPinSecurity> result =
+        accountPinSecurityRepository.findByAccount_Id(UUID.randomUUID());
 
-        assertTrue(result.isEmpty());
-    }
+    assertTrue(result.isEmpty());
+  }
 
-    @Test
-    void shouldNotReturnPinSecurityOfAnotherAccount() {
-        AccountEntity accountA = accountRepository.save(AccountDataProvider.createMockAccount());
-        AccountEntity accountB = accountRepository.save(AccountDataProvider.createMockAccount());
+  @Test
+  void shouldNotReturnPinSecurityOfAnotherAccount() {
+    AccountEntity accountA = accountRepository.save(AccountDataProvider.createMockAccount());
+    AccountEntity accountB = accountRepository.save(AccountDataProvider.createMockAccount());
 
-        Optional<AccountPinSecurity> result = accountPinSecurityRepository
-                .findByAccount_Id(accountA.getId());
+    Optional<AccountPinSecurity> result =
+        accountPinSecurityRepository.findByAccount_Id(accountA.getId());
 
-        assertTrue(result.isPresent());
-        assertNotEquals(accountB.getId(), result.get().getAccount().getId());
-    }
+    assertTrue(result.isPresent());
+    assertNotEquals(accountB.getId(), result.get().getAccount().getId());
+  }
 }

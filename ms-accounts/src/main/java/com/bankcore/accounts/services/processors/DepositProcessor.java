@@ -9,13 +9,13 @@ import com.bankcore.accounts.utils.enums.TransactionStatus;
 import com.bankcore.accounts.utils.enums.TransactionType;
 import com.bankcore.accounts.utils.mappers.TransactionMapper;
 import jakarta.transaction.Transactional;
+import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 /**
  * Handles deposit processing and persistence.
+ *
  * @author BankCore
  * @author Sebastian Orjuela
  * @version 1.0
@@ -24,37 +24,39 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 public class DepositProcessor {
 
-    private final AccountRepository accountRepository;
-    private final TransactionRepository transactionRepository;
-    private final TransactionMapper transactionMapper;
+  private final AccountRepository accountRepository;
+  private final TransactionRepository transactionRepository;
+  private final TransactionMapper transactionMapper;
 
-    /**
-     * Processes a deposit for the given account.
-     *
-     * @param account the account to deposit into
-     * @param amount the deposit amount
-     * @param description a description for the transaction
-     * @return a {@link TransactionResponse} with the result
-     */
-    @Transactional
-    public TransactionResponse processDeposit(AccountEntity account, BigDecimal amount, String description) {
-        BigDecimal balanceBefore = account.getBalance();
-        BigDecimal newBalance = balanceBefore.add(amount);
+  /**
+   * Processes a deposit for the given account.
+   *
+   * @param account the account to deposit into
+   * @param amount the deposit amount
+   * @param description a description for the transaction
+   * @return a {@link TransactionResponse} with the result
+   */
+  @Transactional
+  public TransactionResponse processDeposit(
+      AccountEntity account, BigDecimal amount, String description) {
+    BigDecimal balanceBefore = account.getBalance();
+    BigDecimal newBalance = balanceBefore.add(amount);
 
-        TransactionEntity transaction = TransactionEntity.builder()
-                .account(account)
-                .type(TransactionType.DEPOSIT)
-                .amount(amount)
-                .balanceAfter(newBalance)
-                .description(description)
-                .status(TransactionStatus.COMPLETED)
-                .build();
+    TransactionEntity transaction =
+        TransactionEntity.builder()
+            .account(account)
+            .type(TransactionType.DEPOSIT)
+            .amount(amount)
+            .balanceAfter(newBalance)
+            .description(description)
+            .status(TransactionStatus.COMPLETED)
+            .build();
 
-        transactionRepository.save(transaction);
+    transactionRepository.save(transaction);
 
-        account.setBalance(newBalance);
-        accountRepository.save(account);
+    account.setBalance(newBalance);
+    accountRepository.save(account);
 
-        return transactionMapper.toTransactionResponse(transaction, balanceBefore);
-    }
+    return transactionMapper.toTransactionResponse(transaction, balanceBefore);
+  }
 }
