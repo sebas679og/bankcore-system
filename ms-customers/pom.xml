@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.bankcore.customers</groupId>
 	<artifactId>ms-customers</artifactId>
-	<version>0.6.0</version>
+	<version>0.6.1</version>
 	<name>ms-customers</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
