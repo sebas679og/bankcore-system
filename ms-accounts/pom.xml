@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.bankcore.accounts</groupId>
 	<artifactId>ms-accounts</artifactId>
-	<version>0.7.1</version>
+	<version>0.7.2</version>
 	<name>ms-accounts</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
