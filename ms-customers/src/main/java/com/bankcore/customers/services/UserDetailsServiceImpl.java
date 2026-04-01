@@ -45,11 +45,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     UserEntity userEntity =
         userRepository
             .findById(UUID.fromString(uuid))
-            .orElseThrow(
-                () -> {
-                  log.warn("User not found with uuid: {}", uuid);
-                  return new UsernameNotFoundException("User not found");
-                });
+            .orElseThrow(() -> new UsernameNotFoundException("User not found with id: " + uuid));
 
     return buildUserDetails(userEntity);
   }
