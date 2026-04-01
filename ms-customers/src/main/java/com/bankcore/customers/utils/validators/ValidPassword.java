@@ -26,8 +26,9 @@ import java.lang.annotation.Target;
  *   <li>No whitespace characters
  * </ul>
  *
- * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
+ * @version 0.1.0
  */
 @Documented
 @Constraint(validatedBy = PasswordConstraintValidator.class)

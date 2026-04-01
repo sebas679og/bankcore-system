@@ -8,7 +8,8 @@ import lombok.Getter;
  * Data Transfer Object (DTO) for representing standardized error responses. Typically returned when
  * an exception or validation error occurs in the API.
  *
- * @author Bankcore Team - Sebastian Orjuela
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
  * @version 0.1.0
  */
 @Getter

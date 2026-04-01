@@ -28,7 +28,8 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
  * it, and sets the security context if the token is valid. It extends {@link OncePerRequestFilter}
  * to ensure a single execution per request dispatch.
  *
- * @author BankCore Team - Cristian Ortiz
+ * @author BankCore Team
+ * @author Cristian Ortiz
  * @version 0.1.0
  */
 @Component

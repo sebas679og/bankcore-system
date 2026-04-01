@@ -20,7 +20,9 @@ import java.util.UUID;
  * without exposing implementation details. Implementations are responsible for enforcing business
  * rules, coordinating persistence, and handling security requirements.
  *
- * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
+ * @author BankCore Team
+ * @author Sebastian Orjuela
+ * @author Cristian Ortiz
  * @version 0.1.0
  */
 public interface UserManagement {

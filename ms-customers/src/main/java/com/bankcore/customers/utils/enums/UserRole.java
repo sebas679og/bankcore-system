@@ -6,7 +6,8 @@ package com.bankcore.customers.utils.enums;
  * <p>Roles determine authorization levels and access control to protected resources within the
  * application.
  *
- * @author Bankcore Team - Sebastian Orjuela
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
  * @version 0.1.0
  */
 public enum UserRole {

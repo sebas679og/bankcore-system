@@ -23,7 +23,8 @@ import lombok.Setter;
  * <p>If the PIN does not meet these constraints, validation errors will be raised during request
  * processing.
  *
- * @author Bankcore Team - Sebastian Orjuela
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
  * @version 0.1.0
  * @see ValidAtmPin
  */

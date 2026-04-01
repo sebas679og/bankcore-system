@@ -30,7 +30,8 @@ import org.passay.WhitespaceRule;
  * <p>Null or blank values are considered valid in this validator. Presence validation must be
  * handled separately using {@code @NotBlank} or {@code @NotNull}.
  *
- * @author Bankcore Team - Sebastian Orjuela
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
  * @version 0.1.0
  */
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {

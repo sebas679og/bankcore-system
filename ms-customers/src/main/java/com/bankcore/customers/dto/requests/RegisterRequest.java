@@ -21,7 +21,8 @@ import lombok.Setter;
  * <p>Validation is performed using Jakarta Bean Validation annotations, ensuring that required
  * fields are present and comply with defined formatting and security rules.
  *
- * @author Bankcore Team - Sebastian Orjuela
+ * @author Bankcore Team
+ * @author  Orjuela
  * @version 0.1.0
  */
 @Getter

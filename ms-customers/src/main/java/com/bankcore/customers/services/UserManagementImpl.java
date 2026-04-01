@@ -47,7 +47,7 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author BankCore Team
  * @author Sebastian Orjuela
- * @author Cristian
+ * @author Cristian Ortiz
  * @version 0.1.0
  */
 @Service

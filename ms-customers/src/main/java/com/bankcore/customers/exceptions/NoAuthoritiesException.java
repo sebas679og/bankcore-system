@@ -7,7 +7,8 @@ package com.bankcore.customers.exceptions;
  * <p>This is a {@link RuntimeException}, meaning it does not need to be explicitly declared in a
  * method's {@code throws} clause.
  *
- * @author BankCore Team - Cristian Ortiz
+ * @author BankCore Team
+ * @author Cristian Ortiz
  * @since 0.1.0
  */
 public class NoAuthoritiesException extends RuntimeException {

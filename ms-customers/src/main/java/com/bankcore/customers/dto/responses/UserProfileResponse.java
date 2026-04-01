@@ -10,7 +10,8 @@ import lombok.Data;
  * <p>This class is used to send detailed user data to the client after a successful profile
  * retrieval. It includes personal details, contact information, and account metadata.
  *
- * @author BankCore Team - Cristian Ortiz
+ * @author BankCore Team
+ * @author Cristian Ortiz
  * @version 0.1.0
  */
 @Data

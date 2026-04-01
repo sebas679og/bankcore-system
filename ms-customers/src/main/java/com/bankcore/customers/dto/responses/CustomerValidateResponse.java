@@ -9,7 +9,8 @@ import lombok.Getter;
  * DTO class with response schema for the internal service query, validation of active and existing.
  * client in the system
  *
- * @author Bankcore Team - Sebastian Orjuela
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
  * @version 0.1.0
  */
 @Builder

@@ -13,7 +13,8 @@ import lombok.Setter;
  * <p>This class captures the necessary credentials (email and password) required to authenticate a
  * user within the bank's core system.
  *
- * @author BankCore Team - Cristian Ortiz
+ * @author BankCore Team
+ * @author Cristian Ortiz
  * @version 0.1.0
  */
 @Getter

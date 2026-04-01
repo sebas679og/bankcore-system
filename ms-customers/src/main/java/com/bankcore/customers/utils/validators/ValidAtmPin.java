@@ -17,7 +17,8 @@ import java.lang.annotation.Target;
  *
  * <p>Typical usage includes preventing insecure PIN patterns (e.g., all digits being identical).
  *
- * @author Bankcore Team - Sebastian Orjuela
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
  * @version 0.1.0
  */
 @Documented

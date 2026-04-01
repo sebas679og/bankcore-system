@@ -20,7 +20,8 @@ import org.springframework.stereotype.Component;
  * a protected resource without the necessary permissions. It returns a standardized JSON response
  * using {@link ErrorResponse}.
  *
- * @author BankCore Team - Cristian Ortiz
+ * @author BankCore Team
+ * @author Cristian Ortiz
  * @version 0.1.0
  */
 @Component

@@ -15,7 +15,9 @@ import org.springframework.http.HttpHeaders;
  * versioning, description, and the security scheme (JWT Bearer Token) required to access protected
  * endpoints.
  *
- * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
+ * @author BankCore Team
+ * @author Sebastian Orjuela
+ * @author Cristian Ortiz
  * @version 0.1.0
  */
 @OpenAPIDefinition(

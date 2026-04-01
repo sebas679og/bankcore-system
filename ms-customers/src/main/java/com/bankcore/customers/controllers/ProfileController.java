@@ -35,7 +35,9 @@ import org.springframework.web.bind.annotation.RestController;
  * profile information from the BankCore system. It integrates with Spring Security to ensure only
  * authorized users with the CUSTOMER role can access the data.
  *
- * @author BankCore Team - Cristian Ortiz - Sebastian Orjuela
+ * @author BankCore Team
+ * @author Cristian Ortiz
+ * @author Sebastian Orjuela
  * @version 0.1.0
  */
 @RestController

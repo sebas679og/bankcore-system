@@ -44,7 +44,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  *   <li>Configures the {@link JwtAuthenticationFilter} within the security filter chain.
  * </ul>
  *
- * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
+ * @author BankCore Team
+ * @author Sebastian Orjuela
+ * @author Cristian Ortiz
  * @version 0.1.0
  */
 @Configuration
