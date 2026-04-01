@@ -10,7 +10,7 @@ import java.util.UUID;
  * including identifiers, personal data, and current status.
  *
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public record CustomerDetailsResponse(
     UUID id, String dni, String fullName, String email, CustomerStatus status) {}

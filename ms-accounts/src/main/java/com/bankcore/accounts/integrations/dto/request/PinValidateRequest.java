@@ -10,7 +10,7 @@ import lombok.Data;
  * authentication or security verification processes.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Builder
 @Data

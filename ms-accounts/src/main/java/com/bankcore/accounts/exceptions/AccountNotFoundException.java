@@ -7,7 +7,7 @@ package com.bankcore.accounts.exceptions;
  * when a requested account identifier does not correspond to any existing account in the system.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.1
+ * @version 0.2.0
  * @see RuntimeException
  */
 public class AccountNotFoundException extends RuntimeException {

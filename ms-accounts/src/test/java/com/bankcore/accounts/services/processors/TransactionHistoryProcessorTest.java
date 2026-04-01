@@ -2,6 +2,7 @@ package com.bankcore.accounts.services.processors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -88,10 +89,9 @@ public class TransactionHistoryProcessorTest {
     void shouldNotQueryRepositoryWhenAccountMissing() {
       when(accountRepository.existsByIdAndCustomerId(accountId, customerId)).thenReturn(false);
 
-      try {
-        processor.getTransactions(accountId, customerId, baseParams(1, 10));
-      } catch (AccountNotFoundException ignored) {
-      }
+      assertThrows(
+          AccountNotFoundException.class,
+          () -> processor.getTransactions(accountId, customerId, baseParams(1, 10)));
 
       verifyNoInteractions(repository);
     }

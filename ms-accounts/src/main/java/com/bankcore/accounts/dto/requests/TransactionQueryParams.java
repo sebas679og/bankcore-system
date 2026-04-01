@@ -53,7 +53,7 @@ import lombok.NoArgsConstructor;
 @ValidTransactionQuery
 public class TransactionQueryParams {
 
-  /** Default values */
+  /** Default values. */
   public static final int DEFAULT_PAGE = 1;
 
   public static final int DEFAULT_SIZE = 20;

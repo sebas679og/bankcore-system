@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * Utility class to determine the daily withdrawal limit based on the account type.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Component
 @ConfigurationProperties(prefix = "accounts.withdrawal")
@@ -23,6 +23,12 @@ public class DailyWithdrawalLimit {
     return limits;
   }
 
+  /**
+   * Sets the daily withdrawal limits for each account type.
+   *
+   * @param limits a map containing the account type and its corresponding withdrawal limit
+   * @throws IllegalArgumentException if any limit is null or less than or equal to zero
+   */
   public void setLimits(Map<AccountType, BigDecimal> limits) {
 
     limits.forEach(

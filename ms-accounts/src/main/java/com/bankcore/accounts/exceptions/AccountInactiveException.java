@@ -14,7 +14,7 @@ import com.bankcore.accounts.utils.enums.AccountStatus;
  * @see RuntimeException
  * @see AccountStatus
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.1
+ * @version 0.2.0
  */
 public class AccountInactiveException extends RuntimeException {
 

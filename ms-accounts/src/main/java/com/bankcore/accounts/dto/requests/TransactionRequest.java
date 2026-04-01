@@ -40,7 +40,7 @@ import lombok.Setter;
  * </ul>
  *
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Getter
 @Setter

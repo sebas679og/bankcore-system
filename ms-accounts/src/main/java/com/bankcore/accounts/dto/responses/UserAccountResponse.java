@@ -14,6 +14,7 @@ import lombok.Value;
  * associated with the user.
  *
  * @author BankCore Team - Cristian Ortiz
+ * @version 0.1.0
  */
 @Value
 @Builder

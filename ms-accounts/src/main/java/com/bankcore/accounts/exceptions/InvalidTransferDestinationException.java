@@ -8,7 +8,7 @@ package com.bankcore.accounts.exceptions;
  * operation.
  *
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public class InvalidTransferDestinationException extends RuntimeException {
   public InvalidTransferDestinationException(String message) {

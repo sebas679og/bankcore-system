@@ -36,7 +36,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  * tokens.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)
@@ -124,6 +124,12 @@ public class SecurityConfig {
     return source;
   }
 
+  /**
+   * Configures the converter to extract authorities from JWT tokens. This converter looks for a
+   * claim named "roles" and uses its values as authorities without any prefix.
+   *
+   * @return A configured {@link JwtGrantedAuthoritiesConverter} instance.
+   */
   @Bean
   public JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter() {
     JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
@@ -132,6 +138,12 @@ public class SecurityConfig {
     return converter;
   }
 
+  /**
+   * Configures the JWT authentication converter to use the custom granted authorities converter.
+   *
+   * @param grantedAuthoritiesConverter The converter that extracts authorities from JWT claims.
+   * @return A configured {@link JwtAuthenticationConverter} instance.
+   */
   @Bean
   public JwtAuthenticationConverter jwtAuthenticationConverter(
       JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter) {
@@ -141,6 +153,13 @@ public class SecurityConfig {
     return converter;
   }
 
+  /**
+   * Configures the secret key for JWT encoding and decoding. The secret key is expected to be
+   * provided as a Base64-encoded string in the application properties.
+   *
+   * @param secret The Base64-encoded secret key string from application properties.
+   * @return A {@link SecretKey} instance derived from the provided secret string.
+   */
   @Bean
   public SecretKey secretKey(
       @Value("${spring.security.oauth2.resourceserver.jwt.secret-key}") String secret) {
@@ -150,11 +169,24 @@ public class SecurityConfig {
     return new SecretKeySpec(decodedKey, MacAlgorithm.HS256.getName());
   }
 
+  /**
+   * Configures the JWT decoder to use the provided secret key and the HS256 algorithm.
+   *
+   * @param secretKey The secret key used for decoding JWT tokens.
+   * @return A {@link JwtDecoder} instance configured with the secret key and algorithm.
+   */
   @Bean
   public JwtDecoder jwtDecoder(SecretKey secretKey) {
     return NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
   }
 
+  /**
+   * Configures the JWT encoder to use the provided secret key. This encoder will be used to
+   * generate JWT tokens for authentication.
+   *
+   * @param secretKey The secret key used for encoding JWT tokens.
+   * @return A {@link JwtEncoder} instance configured with the secret key.
+   */
   @Bean
   public JwtEncoder jwtEncoder(SecretKey secretKey) {
     return new NimbusJwtEncoder(new ImmutableSecret<>(secretKey));

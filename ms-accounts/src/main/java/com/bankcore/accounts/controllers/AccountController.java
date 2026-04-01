@@ -23,16 +23,21 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * account service controller
+ * account service controller.
  *
  * <p>It allows the reception of HTTP requests for the respective management of accounts according
  * to the required service
  *
  * @author Bankcore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @RestController
 @RequestMapping("/api/accounts")
@@ -45,8 +50,8 @@ public class AccountController {
   private final AccountManagementService accountManagementService;
 
   /**
-   * verifies that the user is authenticated with the respective role, obtains the name of the token
-   * and the JSON body of the request, and returns the corresponding response
+   * Verifies that the user is authenticated with the respective role, obtains the name of the token
+   * and the JSON body of the request, and returns the corresponding response.
    *
    * @param request the {@link AccountRegisterRequest} contains the data for the creation of the
    *     account
@@ -188,7 +193,10 @@ public class AccountController {
   @Operation(
       summary = "Get account details",
       description =
-          "Retrieves the full details of a specific account belonging to the authenticated customer.",
+          """
+             Retrieves the full details of a specific account
+             belonging to the authenticated customer.
+      """,
       security = @SecurityRequirement(name = "bearerAuth"))
   @ApiResponses(
       value = {

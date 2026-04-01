@@ -8,7 +8,7 @@ package com.bankcore.accounts.exceptions;
  * the requested operation cannot be performed due to insufficient funds.
  *
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public class InsufficientBalanceException extends RuntimeException {
   public InsufficientBalanceException() {

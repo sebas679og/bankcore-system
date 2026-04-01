@@ -22,7 +22,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
  * response with details about the error using the {@link ErrorResponse} DTO.
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -61,10 +61,12 @@ public class GlobalExceptionHandler {
     return buildErrorResponse(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
   }
 
-  // Custom exception handling: captures request errors when the received value cannot be parsed
-  // into an enum type.
+  /**
+   * Handle exceptions related to malformed JSON in the request body, such as invalid enum values or
+   * incorrect data types. This method provides detailed error messages for easier debugging.
+   */
   @ExceptionHandler(HttpMessageNotReadableException.class)
-  public ResponseEntity<ErrorResponse> CustomHttpMessageNotReadableException(
+  public ResponseEntity<ErrorResponse> customHttpMessageNotReadableException(
       HttpMessageNotReadableException ex) {
     Throwable cause = ex.getCause();
     String message = "Invalid request payload";
@@ -89,8 +91,10 @@ public class GlobalExceptionHandler {
     return badRequest(message);
   }
 
-  // Custom exception handling: captures and manages errors in the request body when the user
-  // submits incorrect or malformed parameters.
+  /**
+   * Handle validation errors for request bodies annotated with @Valid. This method extracts
+   * field-level error messages and compiles them into a single response for easier debugging.
+   */
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<ErrorResponse> customMethodArgumentNotValidException(
       MethodArgumentNotValidException ex) {
@@ -116,7 +120,11 @@ public class GlobalExceptionHandler {
     return buildErrorResponse(HttpStatus.BAD_GATEWAY, ex.getMessage());
   }
 
-  // Handles invalid parameter type errors (e.g., wrong type in request parameters)
+  /**
+   * Handles type mismatch errors for request parameters, such as when a string is provided where an
+   * integer is expected. This method provides detailed error messages indicating the invalid value
+   * and the expected parameter type.
+   */
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatch(
       MethodArgumentTypeMismatchException ex) {
@@ -171,7 +179,11 @@ public class GlobalExceptionHandler {
     return conflict(ex.getMessage());
   }
 
-  // Handles validation exception of date parsing from the query - returns HTTP 400 Bad Request
+  /**
+   * Handles validation errors for request parameters annotated with @Validated. This method
+   * extracts constraint violation messages and compiles them into a single response for easier
+   * debugging.
+   */
   @ExceptionHandler(ConstraintViolationException.class)
   public ResponseEntity<ErrorResponse> handleConstraintViolationException(
       ConstraintViolationException ex) {

@@ -9,6 +9,6 @@ package com.bankcore.accounts.integrations.dto.responses;
  *
  * @param valid {@code true} if the PIN is correct, {@code false} otherwise
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public record PinValidateResponse(boolean valid) {}

@@ -3,10 +3,24 @@ package com.bankcore.accounts.models;
 import com.bankcore.accounts.utils.enums.AccountStatus;
 import com.bankcore.accounts.utils.enums.AccountType;
 import com.bankcore.accounts.utils.enums.CurrencyCode;
-import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Index;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +35,7 @@ import org.hibernate.annotations.UuidGenerator;
  * annotations for boilerplate code reduction
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.1
+ * @version 0.2.0
  */
 @Data
 @Builder
@@ -36,7 +50,9 @@ import org.hibernate.annotations.UuidGenerator;
     indexes = {@Index(name = "idx_account_customer", columnList = "customer_id")})
 public class AccountEntity {
 
-  @Id @GeneratedValue @UuidGenerator private UUID id;
+  @Id
+  @GeneratedValue
+  @UuidGenerator private UUID id;
 
   @Column(nullable = false, length = 24, updatable = false)
   private String accountNumber;
