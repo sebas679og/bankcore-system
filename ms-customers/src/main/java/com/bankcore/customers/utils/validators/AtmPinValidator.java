@@ -39,6 +39,7 @@ public class AtmPinValidator implements ConstraintValidator<ValidAtmPin, String>
       return true;
     }
 
+    @SuppressWarnings("PMD.UseConcurrentHashMap")
     Map<Character, Integer> frequency = new HashMap<>();
 
     for (char digit : pin.toCharArray()) {

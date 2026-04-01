@@ -104,13 +104,21 @@ public class JwtService {
       return true;
 
     } catch (ExpiredJwtException e) {
-      log.error("Expired token: {}", e.getMessage());
+      if (log.isErrorEnabled()) {
+          log.error("Expired token: {}", e.getMessage());
+      }
     } catch (MalformedJwtException e) {
-      log.error("Malformed token: {}", e.getMessage());
+      if (log.isErrorEnabled()) {
+          log.error("Malformed token: {}", e.getMessage());
+      }
     } catch (IllegalArgumentException e) {
-      log.error("Token is empty or null: {}", e.getMessage());
-    } catch (Exception e) {
-      log.error("Token problem: {}", e.getMessage());
+      if (log.isErrorEnabled()) {
+          log.error("Token is empty or null: {}", e.getMessage());
+      }
+    } catch (JwtException e) {
+      if (log.isErrorEnabled()) {
+          log.error("Invalid token: {}", e.getMessage());
+      }
     }
 
     return false;

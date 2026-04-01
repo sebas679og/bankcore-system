@@ -2,6 +2,7 @@ package com.bankcore.customers.controllers.filter;
 
 import com.bankcore.customers.exceptions.NoAuthoritiesException;
 import com.bankcore.customers.services.JwtService;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -87,8 +88,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           throw new NoAuthoritiesException("User has no granted authorities");
         }
       }
-    } catch (Exception e) {
-      log.error("Could not authenticate user: {}", e.getMessage(), e);
+    } catch (JwtException e) {
+        if (log.isErrorEnabled()) {
+            log.error("Could not authenticate user: {}", e.getMessage(), e);
+        }
       exceptionResolver.resolveException(request, response, null, e);
       return;
     }
