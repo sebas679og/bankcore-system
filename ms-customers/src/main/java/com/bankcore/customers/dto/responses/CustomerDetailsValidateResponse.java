@@ -7,10 +7,10 @@ import lombok.Builder;
 import lombok.Getter;
 
 /**
- * DTO response for the service to consult details of a specific client
+ * DTO response for the service to consult details of a specific client.
  *
  * @author Bankcore Team - Sebastian Orjuea
- * @version 1.0
+ * @version 0.1.0
  */
 @Builder
 @Getter

@@ -3,7 +3,12 @@ package com.bankcore.customers.services;
 import com.bankcore.customers.dto.requests.LoginRequest;
 import com.bankcore.customers.dto.requests.PinValidateRequest;
 import com.bankcore.customers.dto.requests.RegisterRequest;
-import com.bankcore.customers.dto.responses.*;
+import com.bankcore.customers.dto.responses.CustomerDetailsValidateResponse;
+import com.bankcore.customers.dto.responses.CustomerValidateResponse;
+import com.bankcore.customers.dto.responses.LoginResponse;
+import com.bankcore.customers.dto.responses.PinValidateResponse;
+import com.bankcore.customers.dto.responses.RegisterResponse;
+import com.bankcore.customers.dto.responses.UserProfileResponse;
 import com.bankcore.customers.exceptions.ResourceConflictException;
 import com.bankcore.customers.exceptions.UserProfileNotFoundException;
 import java.util.UUID;
@@ -16,7 +21,7 @@ import java.util.UUID;
  * rules, coordinating persistence, and handling security requirements.
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 public interface UserManagement {
 
@@ -64,7 +69,7 @@ public interface UserManagement {
   UserProfileResponse getCurrentUserProfile(String id);
 
   /**
-   * Retrieve the user details for the accounts service
+   * Retrieve the user details for the accounts service.
    *
    * <p>This method retrieves the user profile and validates its existence, and maps the user to the
    * corresponding DTO
@@ -76,7 +81,7 @@ public interface UserManagement {
   CustomerDetailsValidateResponse getDetailsCustomer(UUID customerId);
 
   /**
-   * retrieves if the user exists and is active
+   * retrieves if the user exists and is active.
    *
    * <p>Retrieve the user by their ID and verify their existence and if their status is {@link
    * com.bankcore.customers.utils.enums.CustomerStatus#ACTIVE}

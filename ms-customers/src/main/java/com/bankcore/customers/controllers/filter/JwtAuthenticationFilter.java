@@ -29,7 +29,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
  * to ensure a single execution per request dispatch.
  *
  * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Component
 @Slf4j
@@ -68,7 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
       if (jwt != null && jwtService.validateToken(jwt)) {
 
-        String subject = jwtService.getUUIDfromToken(jwt);
+        String subject = jwtService.getUuidFromToken(jwt);
 
         List<String> roles = jwtService.getRolesFromToken(jwt);
 

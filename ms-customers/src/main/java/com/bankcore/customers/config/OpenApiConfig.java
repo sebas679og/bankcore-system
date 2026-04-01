@@ -16,7 +16,7 @@ import org.springframework.http.HttpHeaders;
  * endpoints.
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @OpenAPIDefinition(
     info =

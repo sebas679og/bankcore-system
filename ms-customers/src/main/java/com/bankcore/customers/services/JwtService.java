@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  * bankcore system.
  *
  * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Service
 @Slf4j
@@ -71,7 +71,7 @@ public class JwtService {
    * @return The uuid contained in the token payload.
    * @throws JwtException if the token is invalid or cannot be parsed.
    */
-  public String getUUIDfromToken(String token) {
+  public String getUuidFromToken(String token) {
     return getClaims(token).getSubject();
   }
 

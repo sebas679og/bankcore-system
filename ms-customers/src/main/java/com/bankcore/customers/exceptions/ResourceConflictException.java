@@ -5,7 +5,7 @@ package com.bankcore.customers.exceptions;
  * during registration.
  *
  * @author Bankcore Team - Sebastian Orjuea
- * @version 1.0
+ * @version 0.1.0
  */
 public class ResourceConflictException extends RuntimeException {
 

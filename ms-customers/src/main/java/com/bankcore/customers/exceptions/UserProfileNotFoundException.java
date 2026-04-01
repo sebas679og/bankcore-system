@@ -8,7 +8,7 @@ package com.bankcore.customers.exceptions;
  * Found HTTP status.
  *
  * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 public class UserProfileNotFoundException extends RuntimeException {
 

@@ -12,8 +12,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * <p>Extends {@link JpaRepository} to provide standard CRUD operations and defines additional query
  * methods for uniqueness validation.
  *
- * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @author BankCore Team
+ * @author Sebastian Orjuela
+ * @author Cristian Ortiz
+ * @version 0.1.0
  */
 public interface UserRepository extends JpaRepository<UserEntity, UUID> {
 

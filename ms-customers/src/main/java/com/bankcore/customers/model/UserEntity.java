@@ -27,6 +27,10 @@ import lombok.Setter;
  *
  * <p>Sensitive fields such as {@code password} and {@code atmPin} must be stored in encrypted or
  * hashed form and must never be exposed outside the persistence layer.
+ *
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
+ * @version 0.1.0
  */
 @Getter
 @Setter

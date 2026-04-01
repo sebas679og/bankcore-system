@@ -51,7 +51,7 @@ public class JwtServiceUnitTest {
   void shouldContainCorrectSubject_whenTokenIsGenerated() {
     String token = jwtService.generateAccessToken(testUser);
 
-    String subject = jwtService.getUUIDfromToken(token);
+    String subject = jwtService.getUuidFromToken(token);
 
     assertThat(subject).isEqualTo(testUser.getUsername());
   }
@@ -171,7 +171,7 @@ public class JwtServiceUnitTest {
     void shouldReturnCorrectUUID() {
       String token = jwtService.generateAccessToken(testUser);
 
-      String uuid = jwtService.getUUIDfromToken(token);
+      String uuid = jwtService.getUuidFromToken(token);
 
       assertThat(uuid).isEqualTo("550e8400-e29b-41d4-a716-446655440000");
     }

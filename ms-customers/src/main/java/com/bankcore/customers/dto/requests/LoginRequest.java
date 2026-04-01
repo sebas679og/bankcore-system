@@ -14,7 +14,7 @@ import lombok.Setter;
  * user within the bank's core system.
  *
  * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Getter
 @Setter

@@ -7,7 +7,7 @@ package com.bankcore.customers.utils.enums;
  * application.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public enum UserRole {
 
@@ -20,6 +20,6 @@ public enum UserRole {
    */
   ADMIN,
 
-  /** Internal user used only for queries between microservices */
+  /** Internal user used only for queries between microservices. */
   SERVICE
 }

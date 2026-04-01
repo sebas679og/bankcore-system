@@ -1,7 +1,11 @@
 package com.bankcore.customers.controllers;
 
 import com.bankcore.customers.dto.requests.PinValidateRequest;
-import com.bankcore.customers.dto.responses.*;
+import com.bankcore.customers.dto.responses.CustomerDetailsValidateResponse;
+import com.bankcore.customers.dto.responses.CustomerValidateResponse;
+import com.bankcore.customers.dto.responses.ErrorResponse;
+import com.bankcore.customers.dto.responses.PinValidateResponse;
+import com.bankcore.customers.dto.responses.UserProfileResponse;
 import com.bankcore.customers.services.UserManagement;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -17,7 +21,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller for managing customer profile operations.
@@ -27,7 +36,7 @@ import org.springframework.web.bind.annotation.*;
  * authorized users with the CUSTOMER role can access the data.
  *
  * @author BankCore Team - Cristian Ortiz - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @RestController
 @RequestMapping("/api/customers")
@@ -105,7 +114,10 @@ public class ProfileController {
   @Operation(
       summary = "User details",
       description =
-          "Returns the user's details by their id, only if you are an authenticated ADMIN and SERVICE role",
+          """
+              Returns the user's details by their id, only if
+              you are an authenticated ADMIN and SERVICE role
+              """,
       security = @SecurityRequirement(name = "Security Token"),
       responses = {
         @ApiResponse(

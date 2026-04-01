@@ -8,7 +8,7 @@ package com.bankcore.customers.exceptions;
  * method's {@code throws} clause.
  *
  * @author BankCore Team - Cristian Ortiz
- * @since 1.0
+ * @since 0.1.0
  */
 public class NoAuthoritiesException extends RuntimeException {
 

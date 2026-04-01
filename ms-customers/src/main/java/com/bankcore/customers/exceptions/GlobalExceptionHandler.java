@@ -18,7 +18,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
  * {@link ErrorResponse} objects, ensuring consistent API error responses across the system.
  *
  * @author Bankcore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Slf4j
 @RestControllerAdvice

@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  * authentication workflows.
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @RestController
 @RequestMapping("/api/auth")
@@ -105,7 +105,10 @@ public class UserController {
   @Operation(
       summary = "User Login",
       description =
-          "Authenticates a user and returns a JWT token along with user uuid, token type and expire time in seconds.")
+          """
+              Authenticates a user and returns a JWT token along
+              with user uuid, token type and expire time in seconds.
+              """)
   @ApiResponses(
       value = {
         @ApiResponse(

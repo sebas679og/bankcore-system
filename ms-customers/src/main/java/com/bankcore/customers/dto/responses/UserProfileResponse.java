@@ -11,7 +11,7 @@ import lombok.Data;
  * retrieval. It includes personal details, contact information, and account metadata.
  *
  * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Data
 @Builder

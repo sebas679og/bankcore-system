@@ -17,7 +17,7 @@ import lombok.Setter;
  * can proceed.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Setter
 @Getter

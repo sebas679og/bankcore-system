@@ -42,7 +42,12 @@ public @interface ValidPassword {
    * @return the validation error message
    */
   String message() default
-      "Invalid password. Password must be 8-20 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+      """
+                  Invalid password. Password must be 8-20 characters
+                  long and include at least one uppercase letter,
+                  one lowercase letter, one digit, and one special
+                  character.
+                  """;
 
   /**
    * Allows specification of validation groups.

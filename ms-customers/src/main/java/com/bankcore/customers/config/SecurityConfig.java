@@ -45,7 +45,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  * </ul>
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Configuration
 @EnableMethodSecurity(securedEnabled = true)

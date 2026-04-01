@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  * process for authentication and authorization.
  *
  * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Service
 @Slf4j

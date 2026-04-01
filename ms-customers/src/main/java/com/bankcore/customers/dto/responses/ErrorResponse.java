@@ -9,7 +9,7 @@ import lombok.Getter;
  * an exception or validation error occurs in the API.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Getter
 @Builder

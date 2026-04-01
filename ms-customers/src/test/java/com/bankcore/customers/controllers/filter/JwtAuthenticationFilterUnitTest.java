@@ -95,7 +95,7 @@ public class JwtAuthenticationFilterUnitTest {
 
     assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
     verify(jwtService).validateToken(invalidToken);
-    verify(jwtService, never()).getUUIDfromToken(invalidToken);
+    verify(jwtService, never()).getUuidFromToken(invalidToken);
     verify(jwtService, never()).getRolesFromToken(invalidToken);
     verify(filterChain).doFilter(request, response);
   }
@@ -112,7 +112,7 @@ public class JwtAuthenticationFilterUnitTest {
     request.addHeader("Authorization", "Bearer " + validToken);
 
     when(jwtService.validateToken(validToken)).thenReturn(true);
-    when(jwtService.getUUIDfromToken(validToken)).thenReturn(uuid);
+    when(jwtService.getUuidFromToken(validToken)).thenReturn(uuid);
     when(jwtService.getRolesFromToken(validToken)).thenReturn(roles);
 
     jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
@@ -151,7 +151,7 @@ public class JwtAuthenticationFilterUnitTest {
     request.addHeader("Authorization", "Bearer " + token);
 
     when(jwtService.validateToken(token)).thenReturn(true);
-    when(jwtService.getUUIDfromToken(token))
+    when(jwtService.getUuidFromToken(token))
         .thenThrow(new RuntimeException("UUID extraction error"));
 
     jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
@@ -170,13 +170,13 @@ public class JwtAuthenticationFilterUnitTest {
     request.addHeader("Authorization", "Bearer " + baseToken);
 
     when(jwtService.validateToken(baseToken)).thenReturn(true);
-    when(jwtService.getUUIDfromToken(baseToken)).thenReturn(UUID.randomUUID().toString());
+    when(jwtService.getUuidFromToken(baseToken)).thenReturn(UUID.randomUUID().toString());
     when(jwtService.getRolesFromToken(baseToken)).thenReturn(List.of("ROLENUM1"));
 
     jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
 
     verify(jwtService).validateToken(baseToken);
-    verify(jwtService).getUUIDfromToken(baseToken);
+    verify(jwtService).getUuidFromToken(baseToken);
   }
 
   @Test

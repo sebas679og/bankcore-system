@@ -24,7 +24,7 @@ import lombok.Setter;
  * processing.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  * @see ValidAtmPin
  */
 @Getter

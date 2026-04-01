@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
  * <p>Typical usage includes preventing insecure PIN patterns (e.g., all digits being identical).
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Documented
 @Constraint(validatedBy = AtmPinValidator.class)
@@ -41,7 +41,7 @@ public @interface ValidAtmPin {
   Class<?>[] groups() default {};
 
   /**
-   * Payload that can be attached to the constraint. Typically used by clients of the Bean
+   * Payload that can be attached to the constraint. Typically used by clients of the Bean.
    * Validation API to assign custom metadata to a constraint.
    *
    * @return the payload associated with the constraint
