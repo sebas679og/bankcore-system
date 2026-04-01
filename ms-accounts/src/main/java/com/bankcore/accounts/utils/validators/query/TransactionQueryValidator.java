@@ -54,7 +54,7 @@ public class TransactionQueryValidator
   public boolean isValid(TransactionQueryParams values, ConstraintValidatorContext context) {
 
     if (values == null) {
-        return true;
+      return true;
     }
 
     context.disableDefaultConstraintViolation();
