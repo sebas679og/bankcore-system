@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/** Integration tests for verification of data access methods. */
 public class TransactionRepositoryTest extends AbstractIntegrationTest {
 
   @Autowired TransactionRepository transactionRepository;

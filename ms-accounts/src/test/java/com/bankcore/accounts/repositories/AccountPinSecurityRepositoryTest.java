@@ -1,6 +1,8 @@
 package com.bankcore.accounts.repositories;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.bankcore.accounts.AbstractIntegrationTest;
 import com.bankcore.accounts.AccountDataProvider;
@@ -12,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/** Integration tests for verification of data access methods. */
 public class AccountPinSecurityRepositoryTest extends AbstractIntegrationTest {
 
   @Autowired AccountPinSecurityRepository accountPinSecurityRepository;

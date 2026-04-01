@@ -1,7 +1,9 @@
 package com.bankcore.accounts.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.bankcore.accounts.AbstractIntegrationTest;
 import com.bankcore.accounts.AccountDataProvider;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+/** Integration tests for verification of data access methods. */
 public class AccountRepositoryTest extends AbstractIntegrationTest {
 
   @Autowired AccountRepository accountRepository;
@@ -124,7 +127,7 @@ public class AccountRepositoryTest extends AbstractIntegrationTest {
   }
 
   @Test
-  void existsByIdAndCustomerId_WhenThereIsARecord() {
+  void existsByIdAndCustomerId_WhenThereIsA_Record() {
     AccountEntity mockAccount = AccountDataProvider.createMockAccount();
     AccountEntity saved = accountRepository.save(mockAccount);
 
