@@ -1,4 +1,4 @@
-package com.bankcore.accounts.utils.uuidConfig;
+package com.bankcore.accounts.utils.uuidconfig;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 import org.hibernate.annotations.IdGeneratorType;
 
 /**
- * Custom annotation to mark entity fields or methods that should use {@link UUIDv7Generator} for
+ * Custom annotation to mark entity fields or methods that should use {@link UuidV7Generator} for
  * identifier generation.
  *
  * <p>This annotation integrates with Hibernate's {@link IdGeneratorType} mechanism to assign UUIDv7
@@ -37,12 +37,12 @@ import org.hibernate.annotations.IdGeneratorType;
  *       operations.
  * </ul>
  *
- * @see UUIDv7Generator
+ * @see UuidV7Generator
  * @see org.hibernate.annotations.IdGeneratorType
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
-@IdGeneratorType(UUIDv7Generator.class)
+@IdGeneratorType(UuidV7Generator.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD, ElementType.METHOD})
-public @interface UUIDv7 {}
+public @interface UuidV7 {}

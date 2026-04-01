@@ -1,4 +1,4 @@
-package com.bankcore.accounts.utils.uuidConfig;
+package com.bankcore.accounts.utils.uuidconfig;
 
 import com.github.f4b6a3.uuid.UuidCreator;
 import java.util.UUID;
@@ -21,7 +21,7 @@ import org.hibernate.id.IdentifierGenerator;
  *   <li>Ensures that primary keys are unique and sortable by creation time.
  * </ul>
  *
- * <p>Benefits of UUIDv7:
+ * <p>Benefits of UuidV7:
  *
  * <ul>
  *   <li>Globally unique identifiers without requiring a central authority.
@@ -32,12 +32,12 @@ import org.hibernate.id.IdentifierGenerator;
  * @see org.hibernate.id.IdentifierGenerator
  * @see com.github.f4b6a3.uuid.UuidCreator
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
-public class UUIDv7Generator implements IdentifierGenerator {
+public class UuidV7Generator implements IdentifierGenerator {
 
   /**
-   * Generates a new UUIDv7 identifier.
+   * Generates a new UuidV7 identifier.
    *
    * <p>The generated UUID is time-ordered, ensuring that newer values are lexicographically greater
    * than older ones. This property improves database index efficiency and supports chronological

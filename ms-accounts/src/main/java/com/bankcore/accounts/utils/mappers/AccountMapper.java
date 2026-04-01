@@ -13,7 +13,7 @@ import org.mapstruct.Mapper;
  * DTOs.
  *
  * @author BankCore Team - Sebastian Oejuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Mapper(componentModel = "spring")
 public interface AccountMapper {

@@ -18,7 +18,7 @@ import org.mapstruct.Mapping;
  * communication.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Mapper(componentModel = "spring")
 public interface TransactionMapper {

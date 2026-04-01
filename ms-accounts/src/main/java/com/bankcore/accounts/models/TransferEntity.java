@@ -1,7 +1,7 @@
 package com.bankcore.accounts.models;
 
 import com.bankcore.accounts.utils.enums.TransferStatus;
-import com.bankcore.accounts.utils.uuidConfig.UUIDv7;
+import com.bankcore.accounts.utils.uuidconfig.UuidV7;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -67,7 +67,7 @@ public class TransferEntity {
 
   @Id
   @GeneratedValue(generator = "uuid7")
-  @UUIDv7
+  @UuidV7
   private UUID id;
 
   @ManyToOne(fetch = FetchType.LAZY)
