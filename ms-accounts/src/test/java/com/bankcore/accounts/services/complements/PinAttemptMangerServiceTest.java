@@ -105,15 +105,15 @@ public class PinAttemptMangerServiceTest {
 
   @Test
   void shouldIncrementFailedAttempts_whenPinInvalidAndBelowThreshold() {
+    PinValidateResponse response = new PinValidateResponse(false);
+
+    final IncorrectPinException ex =
+        assertThrows(
+            IncorrectPinException.class, () -> service.processPinAttempt(accountId, response));
+
     assertEquals(1, pinSecurity.getFailedAttempts());
     assertNull(pinSecurity.getTemporaryLockUntil());
     assertFalse(pinSecurity.isPermanentLock());
-
-    PinValidateResponse response = new PinValidateResponse(false);
-
-    IncorrectPinException ex =
-        assertThrows(
-            IncorrectPinException.class, () -> service.processPinAttempt(accountId, response));
 
     assertTrue(
         ex.getMessage().contains(String.valueOf(PinAttemptManagerService.TEMP_LOCK_ATTEMPTS - 1)));
