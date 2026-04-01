@@ -308,7 +308,7 @@
                 <version>3.28.0</version>
                 <configuration>
                     <rulesets>
-                        <ruleset>/rulesets/java/quickstart.xml</ruleset>
+                        <ruleset>${basedir}/config/pmd/custom-ruleset.xml</ruleset>
                     </rulesets>
                     <failOnViolation>true</failOnViolation>
                     <printFailingErrors>true</printFailingErrors>
