@@ -120,7 +120,7 @@ public class PinAttemptManagerService {
    */
   private AccountPinSecurity getAccountPinSecurityEntity(UUID accountId) {
     return accountPinSecurityRepository
-        .findByAccount_Id(accountId)
+        .findByAccountId(accountId)
         .orElseThrow(
             () -> {
               log.error(
@@ -153,16 +153,20 @@ public class PinAttemptManagerService {
     if (attempts >= PERM_LOCK_ATTEMPTS) {
       pinSecurity.getAccount().setStatus(AccountStatus.FROZEN);
       pinSecurity.setPermanentLock(true);
-      log.warn(
-          "Account permanently blocked: accountId={}, status={}",
-          pinSecurity.getAccount().getId(),
-          pinSecurity.getAccount().getStatus().name());
+      if (log.isWarnEnabled()) {
+        log.warn(
+            "Account permanently blocked: accountId={}, status={}",
+            pinSecurity.getAccount().getId(),
+            pinSecurity.getAccount().getStatus().name());
+      }
     } else if (attempts == TEMP_LOCK_ATTEMPTS) {
       pinSecurity.setTemporaryLockUntil(Instant.now().plus(TEMP_LOCK_DURATION));
-      log.warn(
-          "Account temporarily locked until {}: accountId={}",
-          pinSecurity.getTemporaryLockUntil(),
-          pinSecurity.getAccount().getId());
+      if (log.isWarnEnabled()) {
+        log.warn(
+            "Account temporarily locked until {}: accountId={}",
+            pinSecurity.getTemporaryLockUntil(),
+            pinSecurity.getAccount().getId());
+      }
     }
   }
 

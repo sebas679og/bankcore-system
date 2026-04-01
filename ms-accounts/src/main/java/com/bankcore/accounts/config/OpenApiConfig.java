@@ -33,13 +33,4 @@ import org.springframework.http.HttpHeaders;
     in = SecuritySchemeIn.HEADER,
     scheme = "bearer",
     bearerFormat = "JWT")
-public class OpenApiConfig {
-
-  /**
-   * Default constructor for OpenApiConfig. This class is used solely for OpenAPI metadata
-   * configuration via annotations.
-   */
-  public OpenApiConfig() {
-    // Empty constructor for documentation purposes
-  }
-}
+public class OpenApiConfig {}

@@ -24,6 +24,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
  * @version 0.1.0
  */
+@SuppressWarnings("PMD.TooManyMethods")
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

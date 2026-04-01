@@ -31,7 +31,12 @@ import org.springframework.data.jpa.domain.Specification;
  * @author Sebastian Orjuela
  * @version 0.1.0
  */
-public class TransactionSpecification {
+public final class TransactionSpecification {
+
+  // Private constructor to prevent instantiation of this utility class
+  private TransactionSpecification() {
+    throw new UnsupportedOperationException("Utility class");
+  }
 
   /**
    * Builds a {@link Specification} for filtering transactions by account ID, transaction type, and

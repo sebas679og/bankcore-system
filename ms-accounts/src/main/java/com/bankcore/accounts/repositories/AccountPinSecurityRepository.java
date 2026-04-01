@@ -23,5 +23,5 @@ public interface AccountPinSecurityRepository extends JpaRepository<AccountPinSe
    * @return an {@link Optional} containing the {@link AccountPinSecurity} record, or empty if no
    *     record exists
    */
-  Optional<AccountPinSecurity> findByAccount_Id(UUID accountId);
+  Optional<AccountPinSecurity> findByAccountId(UUID accountId);
 }

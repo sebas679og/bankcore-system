@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /** Main application class for the MsAccounts microservice. */
 @SpringBootApplication
+@SuppressWarnings("PMD.UseUtilityClass")
 public class MsAccountsApplication {
 
   public static void main(String[] args) {

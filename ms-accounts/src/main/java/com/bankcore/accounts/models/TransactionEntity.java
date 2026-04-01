@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.AccessLevel;
@@ -116,7 +117,8 @@ public class TransactionEntity {
    */
   protected void generateReferenceNumber() {
     if (this.id != null) {
-      String uuidPart = this.id.toString().replace("-", "").substring(0, 16).toUpperCase();
+      String uuidPart =
+          this.id.toString().replace("-", "").substring(0, 16).toUpperCase(Locale.ROOT);
       String randomPart =
           Long.toHexString(ThreadLocalRandom.current().nextLong(0xFFFFFFFFFFFFL)).toUpperCase();
       this.referenceNumber = String.join("", "TXN", uuidPart, randomPart);

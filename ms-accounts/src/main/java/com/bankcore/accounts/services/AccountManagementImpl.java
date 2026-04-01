@@ -173,7 +173,7 @@ public class AccountManagementImpl implements AccountManagementService {
 
     Instant lastTransactionAt =
         transactionRepository
-            .findTopByAccount_IdOrderByCreatedAtDesc(accountId)
+            .findTopByAccountIdOrderByCreatedAtDesc(accountId)
             .map(TransactionEntity::getCreatedAt)
             .orElse(null);
 

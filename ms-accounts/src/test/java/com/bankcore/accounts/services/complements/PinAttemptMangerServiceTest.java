@@ -56,7 +56,7 @@ public class PinAttemptMangerServiceTest {
     pinSecurity.setPermanentLock(false);
     pinSecurity.setTemporaryLockUntil(null);
 
-    when(accountPinSecurityRepository.findByAccount_Id(accountId))
+    when(accountPinSecurityRepository.findByAccountId(accountId))
         .thenReturn(Optional.of(pinSecurity));
   }
 
@@ -149,7 +149,7 @@ public class PinAttemptMangerServiceTest {
 
   @Test
   void shouldThrowInternalServiceException_whenSecurityEntityNotFound() {
-    when(accountPinSecurityRepository.findByAccount_Id(accountId)).thenReturn(Optional.empty());
+    when(accountPinSecurityRepository.findByAccountId(accountId)).thenReturn(Optional.empty());
 
     PinValidateResponse response = new PinValidateResponse(true);
 
