@@ -101,6 +101,7 @@ docs: actualizar variables de entorno en README
 ## Linters y pruebas
 
 Antes de abrir cualquier PR es **obligatorio** ejecutar Spotless en local para garantizar que el código cumple con el estilo definido en el proyecto.
+Recuerde que para aplicar las validaciones debe ir al directorio del microservicio afectado (`ms-customers` o `ms-accounts`) y ejecutar los comandos desde ahí.
 
 ### Spotless (formateo de código)
 
