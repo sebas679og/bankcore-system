@@ -35,6 +35,7 @@ jobs:
 
   account-service:
     runs-on: ubuntu-latest
+    needs: customers-service
 
     defaults:
       run:
