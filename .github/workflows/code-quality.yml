@@ -30,6 +30,9 @@ jobs:
       - name: Checkstyle — check style
         run: mvn checkstyle:check
 
+      - name: PMD — check for code issues
+        run: mvn pmd:check
+
   account-service:
     runs-on: ubuntu-latest
 
@@ -53,3 +56,6 @@ jobs:
 
       - name: Checkstyle — check style
         run: mvn checkstyle:check
+
+      - name: PMD — check for code issues
+        run: mvn pmd:check
