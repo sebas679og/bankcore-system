@@ -118,12 +118,20 @@ Verifica que el código ya cumple con el formato sin modificarlo:
 
 > Si `spotless:check` falla en el pipeline, el PR será rechazado. Ejecuta siempre `spotless:apply` antes de hacer push para evitarlo.
 
-### Ejecutar solo las pruebas
-
-Corre las pruebas omitiendo la verificación de Spotless:
+Verifica que el código cumple con reglas de estilo y buenas prácticas predefinidas:
 
 ```bash
-./mvnw -B clean verify "-Dspotless.check.skip=true"
+./mvnw checkstyle:check
+```
+
+> Si `checkstyle:check` falla, el PR también será rechazado. Asegúrate de corregir los errores reportados antes de hacer push.
+
+### Ejecutar solo las pruebas
+
+Corre las pruebas omitiendo la verificación de Spotless y Checkstyle:
+
+```bash
+./mvnw -B clean verify "-Dspotless.check.skip=true" "-Dcheckstyle.skip=true"
 ```
 
 ### Linters + pruebas juntos
