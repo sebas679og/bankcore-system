@@ -273,6 +273,10 @@
                     <failsOnError>true</failsOnError>
                     <violationSeverity>warning</violationSeverity>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <excludes>**/generated-sources/**/*,**/generated/**/*</excludes>
+                    <sourceDirectories>
+                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                    </sourceDirectories>
                 </configuration>
                 <executions>
                     <execution>
