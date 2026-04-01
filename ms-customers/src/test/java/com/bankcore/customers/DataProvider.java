@@ -20,6 +20,12 @@ import com.bankcore.customers.utils.enums.UserRole;
  * @version 0.1.0
  */
 public class DataProvider {
+  public static final String EMAIL = "juan@test.com";
+  public static final String UUID = "9e85d91b-3b89-4404-b0ca-12a4b0533510";
+  public static final String INVALID_UUID = "550e8400-e29b-41d4-a716446655440000";
+  public static final String CUSTOMER_ROLE = "CUSTOMER";
+  public static final String ADMIN_ROLE = "ADMIN";
+  public static final String SERVICE_ROLE = "SERVICE";
 
   /**
    * Creates a mock {@link UserEntity} with default attributes.
