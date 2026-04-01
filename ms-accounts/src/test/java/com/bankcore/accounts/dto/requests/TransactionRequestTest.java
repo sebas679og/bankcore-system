@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+/** Unit tests for {@link TransactionRequest} to validate the constraints on the 'pin' field. */
 public class TransactionRequestTest {
 
   private static Validator validator;
