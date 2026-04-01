@@ -23,6 +23,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
+/**
+ * Integration tests for the JwtAuthenticationFilter to verify its behavior in various scenarios,
+ * including handling of valid and invalid JWT tokens, role-based access control, and public
+ * endpoint accessibility.
+ */
 public class JwtAuthenticationFilterIntegrationTest extends AbstractIntegrationTest {
 
   @Autowired private MockMvc mockMvc;
@@ -108,7 +113,10 @@ public class JwtAuthenticationFilterIntegrationTest extends AbstractIntegrationT
     String[] parts = validToken.split("\\.");
     String tamperedToken =
         parts[0]
-            + ".eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0."
+            + """
+                .eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gR
+                G9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.
+                """
             + parts[2];
 
     mockMvc
@@ -119,7 +127,11 @@ public class JwtAuthenticationFilterIntegrationTest extends AbstractIntegrationT
   @Test
   void shouldReturn401_whenTokenIsExpired() throws Exception {
     String expiredExToken =
-        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyLXV1aWQiLCJleHAiOjE1Nzc4MzY4MDB9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+        """
+            eyJhbGciOiJIUzI1NiJ9.
+            eyJzdWIiOiJ1c2VyLXV1aWQiLCJleHAiOjE1Nzc4MzY4MDB9.
+            SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+            """;
 
     mockMvc
         .perform(get("/api/customers/me").header("Authorization", "Bearer " + expiredExToken))

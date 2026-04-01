@@ -1,6 +1,7 @@
 package com.bankcore.customers.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.bankcore.customers.AbstractIntegrationTest;
 import com.bankcore.customers.DataProvider;

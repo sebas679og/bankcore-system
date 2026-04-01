@@ -18,6 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/** Unit tests for {@link JwtService}. */
 public class JwtServiceUnitTest {
 
   private JwtService jwtService;
@@ -165,10 +166,10 @@ public class JwtServiceUnitTest {
   }
 
   @Nested
-  class GetUUIDfromToken {
+  class GetUuidFromToken {
 
     @Test
-    void shouldReturnCorrectUUID() {
+    void shouldReturnCorrectUuid() {
       String token = jwtService.generateAccessToken(testUser);
 
       String uuid = jwtService.getUuidFromToken(token);

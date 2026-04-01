@@ -22,7 +22,7 @@ import lombok.Setter;
  * fields are present and comply with defined formatting and security rules.
  *
  * @author Bankcore Team
- * @author  Orjuela
+ * @author Orjuela
  * @version 0.1.0
  */
 @Getter
