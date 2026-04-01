@@ -85,13 +85,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
           SecurityContextHolder.getContext().setAuthentication(authentication);
         } else {
-          throw new NoAuthoritiesException("User has no granted authorities");
+          NoAuthoritiesException ex = new NoAuthoritiesException("User has no granted authorities");
+          exceptionResolver.resolveException(request, response, null, ex);
+          return;
         }
       }
-    } catch (JwtException e) {
-        if (log.isErrorEnabled()) {
-            log.error("Could not authenticate user: {}", e.getMessage(), e);
-        }
+    } catch (JwtException | NoAuthoritiesException e) {
+      if (log.isWarnEnabled()) {
+        log.warn(
+            "JWT authentication failed: {} - {}", e.getClass().getSimpleName(), e.getMessage());
+      }
       exceptionResolver.resolveException(request, response, null, e);
       return;
     }
