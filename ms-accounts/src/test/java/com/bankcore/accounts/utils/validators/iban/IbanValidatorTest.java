@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/** Unit tests for {@link IbanValidator}. */
 @ExtendWith(MockitoExtension.class)
 @DisplayName("IbanValidator")
 public class IbanValidatorTest {

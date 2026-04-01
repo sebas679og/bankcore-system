@@ -1,6 +1,12 @@
 package com.bankcore.accounts.services.complements;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 import com.bankcore.accounts.exceptions.AccountPermanentlyLockedException;
@@ -23,6 +29,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/**
+ * Unit tests for {@link PinAttemptManagerService} to verify correct handling of pin attempt logic.
+ */
 @ExtendWith(MockitoExtension.class)
 public class PinAttemptMangerServiceTest {
 
@@ -31,11 +40,11 @@ public class PinAttemptMangerServiceTest {
   @InjectMocks private PinAttemptManagerService service;
 
   private UUID accountId;
-  private AccountEntity account;
   private AccountPinSecurity pinSecurity;
 
   @BeforeEach
   void setUp() {
+    AccountEntity account;
     accountId = UUID.randomUUID();
     account = new AccountEntity();
     account.setId(accountId);
@@ -96,15 +105,15 @@ public class PinAttemptMangerServiceTest {
 
   @Test
   void shouldIncrementFailedAttempts_whenPinInvalidAndBelowThreshold() {
+    assertEquals(1, pinSecurity.getFailedAttempts());
+    assertNull(pinSecurity.getTemporaryLockUntil());
+    assertFalse(pinSecurity.isPermanentLock());
+
     PinValidateResponse response = new PinValidateResponse(false);
 
     IncorrectPinException ex =
         assertThrows(
             IncorrectPinException.class, () -> service.processPinAttempt(accountId, response));
-
-    assertEquals(1, pinSecurity.getFailedAttempts());
-    assertNull(pinSecurity.getTemporaryLockUntil());
-    assertFalse(pinSecurity.isPermanentLock());
 
     assertTrue(
         ex.getMessage().contains(String.valueOf(PinAttemptManagerService.TEMP_LOCK_ATTEMPTS - 1)));
