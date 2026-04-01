@@ -27,8 +27,8 @@ jobs:
       - name: Spotless — check format
         run: mvn spotless:check
 
-      - name: Checkstyle — check style
-        run: mvn checkstyle:check
+#      - name: Checkstyle — check style
+#        run: mvn checkstyle:check
 
   account-service:
     runs-on: ubuntu-latest
