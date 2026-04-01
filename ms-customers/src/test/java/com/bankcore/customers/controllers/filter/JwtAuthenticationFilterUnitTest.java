@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 import com.bankcore.customers.exceptions.NoAuthoritiesException;
 import com.bankcore.customers.services.JwtService;
 import com.bankcore.customers.utils.enums.UserRole;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import java.io.IOException;
@@ -159,15 +160,14 @@ public class JwtAuthenticationFilterUnitTest {
     request.addHeader("Authorization", "Bearer " + token);
 
     when(jwtService.validateToken(token)).thenReturn(true);
-    when(jwtService.getUuidFromToken(token))
-        .thenThrow(new RuntimeException("UUID extraction error"));
+    when(jwtService.getUuidFromToken(token)).thenThrow(new JwtException("UUID extraction error"));
 
     jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
 
     assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
     verify(filterChain, never()).doFilter(request, response);
     verify(exceptionResolver)
-        .resolveException(eq(request), eq(response), isNull(), any(RuntimeException.class));
+        .resolveException(eq(request), eq(response), isNull(), any(JwtException.class));
   }
 
   // JWT parse:
