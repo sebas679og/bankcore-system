@@ -12,7 +12,7 @@ import java.util.UUID;
  * account-related operations.
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 public interface AccountManagementService {
 

@@ -7,7 +7,7 @@ package com.bankcore.accounts.utils.enums;
  * initiation to completion or cancellation.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public enum TransferStatus {
   /** The transfer has been created but not yet processed. */

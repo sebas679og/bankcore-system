@@ -7,6 +7,7 @@ package com.bankcore.accounts.utils.enums;
  * {@code TransactionEntity}.
  *
  * @author BankCore Team - Cristian Ortiz
+ * @version 0.1.0
  */
 public enum TransactionType {
 

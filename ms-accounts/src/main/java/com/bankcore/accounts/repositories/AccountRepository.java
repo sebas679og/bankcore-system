@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * to provide CRUD operations and custom query methods.
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 public interface AccountRepository extends JpaRepository<AccountEntity, UUID> {
 

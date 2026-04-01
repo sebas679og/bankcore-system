@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
  *
  * @author BankCore
  * @author Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Service
 @RequiredArgsConstructor
@@ -134,7 +134,9 @@ public class TransferProcessor {
   }
 
   private String resolveRecipientName(AccountEntity destinationAccount) {
-    if (destinationAccount == null) return null;
+    if (destinationAccount == null) {
+      return null;
+    }
     return validationService.getFullNameCustomerById(destinationAccount.getCustomerId());
   }
 

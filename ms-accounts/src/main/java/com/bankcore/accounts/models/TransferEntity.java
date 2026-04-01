@@ -2,10 +2,6 @@ package com.bankcore.accounts.models;
 
 import com.bankcore.accounts.utils.enums.TransferStatus;
 import com.bankcore.accounts.utils.uuidConfig.UUIDv7;
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +14,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

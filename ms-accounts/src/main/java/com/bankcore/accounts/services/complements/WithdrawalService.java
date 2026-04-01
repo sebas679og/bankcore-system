@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  * will be thrown.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  * @see DailyWithdrawalLimit
  * @see AccountType
  */
@@ -28,6 +28,14 @@ public class WithdrawalService {
 
   private final DailyWithdrawalLimit withdrawalLimit;
 
+  /**
+   * Resolves the daily withdrawal limit for the specified account type.
+   *
+   * @param type the account type for which to resolve the withdrawal limit
+   * @return the daily withdrawal limit as a {@link BigDecimal}
+   * @throws IllegalArgumentException if no withdrawal limit is configured for the given account
+   *     type
+   */
   public BigDecimal resolveDailyLimit(AccountType type) {
     Map<AccountType, BigDecimal> limits = withdrawalLimit.getLimits();
 

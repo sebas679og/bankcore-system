@@ -7,6 +7,7 @@ package com.bankcore.accounts.utils.enums;
  * settlement or failure.
  *
  * @author BankCore Team - Cristian Ortiz
+ * @version 0.1.0
  */
 public enum TransactionStatus {
 

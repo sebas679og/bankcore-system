@@ -29,7 +29,7 @@ import org.springframework.data.jpa.domain.Specification;
  *
  * @author Bankcore Team
  * @author Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public class TransactionSpecification {
 
@@ -60,10 +60,15 @@ public class TransactionSpecification {
 
       predicates.add(cb.equal(root.get("account").get("id"), accountId));
 
-      if (type != null) predicates.add(cb.equal(root.get("type"), type));
-      if (fromDate != null)
+      if (type != null) {
+        predicates.add(cb.equal(root.get("type"), type));
+      }
+      if (fromDate != null) {
         predicates.add(cb.greaterThanOrEqualTo(root.get("createdAt"), fromDate));
-      if (toDate != null) predicates.add(cb.lessThanOrEqualTo(root.get("createdAt"), toDate));
+      }
+      if (toDate != null) {
+        predicates.add(cb.lessThanOrEqualTo(root.get("createdAt"), toDate));
+      }
 
       return cb.and(predicates.toArray(new Predicate[0]));
     };
