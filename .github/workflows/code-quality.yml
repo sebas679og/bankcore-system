@@ -1,0 +1,49 @@
+name: Code Quality for Bankcore System
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+
+  customers-service:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ms-customers
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Spotless — check format
+        run: mvn spotless:check
+
+  account-service:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ms-accounts
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Spotless — check format
+        run: mvn spotless:check

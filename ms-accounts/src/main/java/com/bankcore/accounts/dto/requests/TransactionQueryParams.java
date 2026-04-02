@@ -12,31 +12,32 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * {@code TransactionQueryParams} is a Data Transfer Object (DTO)
- * that encapsulates query parameters for retrieving transactions.
+ * {@code TransactionQueryParams} is a Data Transfer Object (DTO) that encapsulates query parameters
+ * for retrieving transactions.
  *
- * <p>This class is annotated with {@link ValidTransactionQuery},
- * which ensures that date ranges and transaction types are valid
- * according to business rules.</p>
+ * <p>This class is annotated with {@link ValidTransactionQuery}, which ensures that date ranges and
+ * transaction types are valid according to business rules.
  *
- * <p>Responsibilities:</p>
+ * <p>Responsibilities:
+ *
  * <ul>
- *   <li>Provide pagination parameters ({@code page}, {@code size}).</li>
- *   <li>Hold optional filtering parameters ({@code fromDate}, {@code toDate}, {@code type}).</li>
- *   <li>Enforce validation constraints such as minimum/maximum values and ISO-8601 date formats.</li>
+ *   <li>Provide pagination parameters ({@code page}, {@code size}).
+ *   <li>Hold optional filtering parameters ({@code fromDate}, {@code toDate}, {@code type}).
+ *   <li>Enforce validation constraints such as minimum/maximum values and ISO-8601 date formats.
  * </ul>
  *
- * <p>Validation Rules:</p>
+ * <p>Validation Rules:
+ *
  * <ul>
- *   <li>{@code page} must be greater than or equal to 1.</li>
- *   <li>{@code size} must be between 1 and 50.</li>
- *   <li>{@code fromDate} and {@code toDate} must be ISO-8601 formatted strings.</li>
- *   <li>{@code fromDate} cannot be after {@code toDate}.</li>
- *   <li>{@code type} must correspond to a valid {@link TransactionType}.</li>
+ *   <li>{@code page} must be greater than or equal to 1.
+ *   <li>{@code size} must be between 1 and 50.
+ *   <li>{@code fromDate} and {@code toDate} must be ISO-8601 formatted strings.
+ *   <li>{@code fromDate} cannot be after {@code toDate}.
+ *   <li>{@code type} must correspond to a valid {@link TransactionType}.
  * </ul>
  *
- * <p>This object is typically used in service or repository layers
- * to filter transaction queries based on user-provided parameters.</p>
+ * <p>This object is typically used in service or repository layers to filter transaction queries
+ * based on user-provided parameters.
  *
  * @author BankcoreTeam
  * @author Sebastian Orjuela
@@ -52,98 +53,77 @@ import lombok.NoArgsConstructor;
 @ValidTransactionQuery
 public class TransactionQueryParams {
 
-    /**
-     * Default values
-     */
-    public static final int DEFAULT_PAGE = 1;
-    public static final int DEFAULT_SIZE = 20;
+  /** Default values */
+  public static final int DEFAULT_PAGE = 1;
 
-    /**
-     * The page number for pagination.
-     * Must be greater than or equal to 0.
-     */
-    @Schema(
-            description = "Page number (starting from 1)",
-            example = "1",
-            minimum = "1",
-            defaultValue = "1"
-    )
-    @Min(value = 1, message = "Page must be greater than or equal to 1")
-    @Builder.Default
-    private Integer page = DEFAULT_PAGE;
+  public static final int DEFAULT_SIZE = 20;
 
-    /**
-     * The page size for pagination.
-     * Must be between 1 and 50.
-     */
-    @Schema(
-            description = "Number of records per page",
-            example = "20",
-            minimum = "1",
-            maximum = "50",
-            defaultValue = "20"
-    )
-    @Min(value = 1, message = "Size must be greater than or equal to 1")
-    @Max(value = 50, message = "Size must be less than or equal to 50")
-    @Builder.Default
-    private Integer size = DEFAULT_SIZE;
+  /** The page number for pagination. Must be greater than or equal to 0. */
+  @Schema(
+      description = "Page number (starting from 1)",
+      example = "1",
+      minimum = "1",
+      defaultValue = "1")
+  @Min(value = 1, message = "Page must be greater than or equal to 1")
+  @Builder.Default
+  private Integer page = DEFAULT_PAGE;
 
-    /**
-     * The start date of the transaction query.
-     * Must be in ISO-8601 format.
-     */
-    @Schema(
-            description = "Start date for filtering transactions (ISO-8601 format)",
-            example = "2025-01-01T00:00:00Z",
-            format = "date-time"
-    )
-    private String fromDate;
+  /** The page size for pagination. Must be between 1 and 50. */
+  @Schema(
+      description = "Number of records per page",
+      example = "20",
+      minimum = "1",
+      maximum = "50",
+      defaultValue = "20")
+  @Min(value = 1, message = "Size must be greater than or equal to 1")
+  @Max(value = 50, message = "Size must be less than or equal to 50")
+  @Builder.Default
+  private Integer size = DEFAULT_SIZE;
 
-    /**
-     * The end date of the transaction query.
-     * Must be in ISO-8601 format.
-     */
-    @Schema(
-            description = "End date for filtering transactions (ISO-8601 format)",
-            example = "2025-01-31T23:59:59Z",
-            format = "date-time"
-    )
-    private String toDate;
+  /** The start date of the transaction query. Must be in ISO-8601 format. */
+  @Schema(
+      description = "Start date for filtering transactions (ISO-8601 format)",
+      example = "2025-01-01T00:00:00Z",
+      format = "date-time")
+  private String fromDate;
 
-    /**
-     * The type of transaction to filter.
-     * Must correspond to a valid {@link TransactionType}.
-     */
-    @Schema(
-            description = "Transaction type filter",
-            example = "TRANSFER",
-            allowableValues = {"DEPOSIT", "WITHDRAWAL", "TRANSFER_IN", "TRANSFER_OUT", "FEE"}
-    )
-    private String type;
+  /** The end date of the transaction query. Must be in ISO-8601 format. */
+  @Schema(
+      description = "End date for filtering transactions (ISO-8601 format)",
+      example = "2025-01-31T23:59:59Z",
+      format = "date-time")
+  private String toDate;
 
-    /**
-     * Returns the requested page number or a default value.
-     *
-     * <p>If the query parameter {@code page} is passed as an empty string (""),
-     * Spring's DataBinder will set it to {@code null}. In that case, this method
-     * ensures a default value of {@code #DEFAULT_PAGE} is returned.</p>
-     *
-     * @return the page number, or {@code #DEFAULT_PAGE} if {@code page} is null
-     */
-    public Integer getPage() {
-        return page != null ? page : DEFAULT_PAGE;
-    }
+  /** The type of transaction to filter. Must correspond to a valid {@link TransactionType}. */
+  @Schema(
+      description = "Transaction type filter",
+      example = "TRANSFER",
+      allowableValues = {"DEPOSIT", "WITHDRAWAL", "TRANSFER_IN", "TRANSFER_OUT", "FEE"})
+  private String type;
 
-    /**
-     * Returns the requested page size or a default value.
-     *
-     * <p>If the query parameter {@code size} is passed as an empty string (""),
-     * Spring's DataBinder will set it to {@code null}. In that case, this method
-     * ensures a default value of {@code #DEFAULT_SIZE} is returned.</p>
-     *
-     * @return the page size, or {@code #DEFAULT_SIZE} if {@code size} is null
-     */
-    public Integer getSize() {
-        return size != null ? size : DEFAULT_SIZE;
-    }
+  /**
+   * Returns the requested page number or a default value.
+   *
+   * <p>If the query parameter {@code page} is passed as an empty string (""), Spring's DataBinder
+   * will set it to {@code null}. In that case, this method ensures a default value of {@code
+   * #DEFAULT_PAGE} is returned.
+   *
+   * @return the page number, or {@code #DEFAULT_PAGE} if {@code page} is null
+   */
+  public Integer getPage() {
+    return page != null ? page : DEFAULT_PAGE;
+  }
+
+  /**
+   * Returns the requested page size or a default value.
+   *
+   * <p>If the query parameter {@code size} is passed as an empty string (""), Spring's DataBinder
+   * will set it to {@code null}. In that case, this method ensures a default value of {@code
+   * #DEFAULT_SIZE} is returned.
+   *
+   * @return the page size, or {@code #DEFAULT_SIZE} if {@code size} is null
+   */
+  public Integer getSize() {
+    return size != null ? size : DEFAULT_SIZE;
+  }
 }

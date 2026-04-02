@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.bankcore.accounts</groupId>
 	<artifactId>ms-accounts</artifactId>
-	<version>0.7.1</version>
+	<version>0.7.2</version>
 	<name>ms-accounts</name>
 	<description>Demo project for Spring Boot</description>
 	<url />
@@ -29,7 +29,21 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+        <spotless.version>3.4.0</spotless.version>
+        <google-java-format.version>1.28.0</google-java-format.version>
+        <commons-compress.version>1.27.1</commons-compress.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
 	</properties>
+    <dependencyManagement>
+        <dependencies>
+            <!-- CVE-2024-25710, CVE-2024-26308 — forzar versión segura -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -223,6 +237,29 @@
                                 </rule>
                             </rules>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless.version}</version>
+                <configuration>
+                    <java>
+                        <googleJavaFormat>
+                            <version>${google-java-format.version}</version>
+                            <style>GOOGLE</style>
+                        </googleJavaFormat>
+                        <removeUnusedImports/>
+                        <trimTrailingWhitespace/>
+                        <endWithNewline/>
+                    </java>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
