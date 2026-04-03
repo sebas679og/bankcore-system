@@ -137,7 +137,7 @@ Verifica que el código cumpla con un análisis de código estatico examinando p
 
 ### Ejecutar solo las pruebas
 
-Corre las pruebas omitiendo la verificación de Spotless y Checkstyle:
+Corre las pruebas omitiendo la verificación de Spotless, Checkstyle y PMD:
 
 ```bash
 ./mvnw -B clean verify "-Dspotless.check.skip=true" "-Dcheckstyle.skip=true" "-Dpmd.skip=true"
