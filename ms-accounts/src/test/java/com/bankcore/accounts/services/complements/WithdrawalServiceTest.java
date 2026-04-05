@@ -15,6 +15,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/**
+ * Unit tests for {@link WithdrawalService} to verify correct behavior of daily withdrawal limit
+ * resolution based on account type.
+ */
 @ExtendWith(MockitoExtension.class)
 public class WithdrawalServiceTest {
 

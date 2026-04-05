@@ -1,11 +1,15 @@
 package com.bankcore.accounts.services.complements;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.bankcore.accounts.utils.IbanUtils;
 import java.math.BigInteger;
 import org.junit.jupiter.api.Test;
 
+/** Unit tests for {@link IbanGeneratorService} to ensure correct generation of Spanish IBANs. */
 public class IbanGeneratorServiceTest {
 
   private final IbanGeneratorService ibanGeneratorService = new IbanGeneratorService();

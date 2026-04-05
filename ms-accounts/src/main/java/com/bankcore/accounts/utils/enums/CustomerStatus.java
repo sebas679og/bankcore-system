@@ -7,7 +7,7 @@ package com.bankcore.accounts.utils.enums;
  * rules.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public enum CustomerStatus {
 

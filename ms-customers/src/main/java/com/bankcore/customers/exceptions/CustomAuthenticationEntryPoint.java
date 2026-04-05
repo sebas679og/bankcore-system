@@ -20,8 +20,9 @@ import org.springframework.stereotype.Component;
  * resource. It overrides the default Spring Security behavior to return a structured JSON response
  * using {@link ErrorResponse}.
  *
- * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @author BankCore Team
+ * @author Cristian Ortiz
+ * @version 0.1.0
  */
 @Component
 @RequiredArgsConstructor

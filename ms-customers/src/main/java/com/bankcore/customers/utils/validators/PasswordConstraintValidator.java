@@ -3,7 +3,12 @@ package com.bankcore.customers.utils.validators;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.util.List;
-import org.passay.*;
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.LengthRule;
+import org.passay.PasswordData;
+import org.passay.PasswordValidator;
+import org.passay.WhitespaceRule;
 
 /**
  * Custom validator implementation for the {@link ValidPassword} annotation.
@@ -25,8 +30,9 @@ import org.passay.*;
  * <p>Null or blank values are considered valid in this validator. Presence validation must be
  * handled separately using {@code @NotBlank} or {@code @NotNull}.
  *
- * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
+ * @version 0.1.0
  */
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 

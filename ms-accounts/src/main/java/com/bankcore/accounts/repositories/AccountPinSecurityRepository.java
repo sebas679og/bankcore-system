@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * methods for PIN security records associated with accounts.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public interface AccountPinSecurityRepository extends JpaRepository<AccountPinSecurity, UUID> {
 

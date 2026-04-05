@@ -2,7 +2,11 @@ package com.bankcore.accounts.utils.validators.iban;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import java.lang.annotation.*;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * Custom validation annotation for International Bank Account Numbers (IBAN).
@@ -13,7 +17,7 @@ import java.lang.annotation.*;
  *
  * @see IbanValidator
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Documented
 @Constraint(validatedBy = IbanValidator.class)

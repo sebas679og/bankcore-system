@@ -26,8 +26,9 @@ import java.lang.annotation.Target;
  *   <li>No whitespace characters
  * </ul>
  *
- * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
+ * @version 0.1.0
  */
 @Documented
 @Constraint(validatedBy = PasswordConstraintValidator.class)
@@ -42,7 +43,12 @@ public @interface ValidPassword {
    * @return the validation error message
    */
   String message() default
-      "Invalid password. Password must be 8-20 characters long and include at least one uppercase letter, one lowercase letter, one digit, and one special character.";
+      """
+                  Invalid password. Password must be 8-20 characters
+                  long and include at least one uppercase letter,
+                  one lowercase letter, one digit, and one special
+                  character.
+                  """;
 
   /**
    * Allows specification of validation groups.

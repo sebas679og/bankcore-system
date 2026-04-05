@@ -14,7 +14,7 @@ import lombok.Setter;
  * Response DTO for account registration.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Setter
 @Builder

@@ -35,7 +35,7 @@ import java.util.Locale;
  *
  * @author BankcoreTeam
  * @author Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  * @see ValidTransactionQuery
  * @see TransactionQueryParams
  * @see TransactionType
@@ -53,7 +53,9 @@ public class TransactionQueryValidator
   @Override
   public boolean isValid(TransactionQueryParams values, ConstraintValidatorContext context) {
 
-    if (values == null) return true;
+    if (values == null) {
+      return true;
+    }
 
     context.disableDefaultConstraintViolation();
     boolean isValid = true;

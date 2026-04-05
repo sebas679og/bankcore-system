@@ -26,6 +26,10 @@ import org.springframework.stereotype.Service;
  *
  * <p>Note: This generator produces structurally valid IBANs for testing or internal systems. It
  * does not guarantee existence in a real banking network.
+ *
+ * @author BankCoreTeam
+ * @author Sebastian Orjuela
+ * @version 0.1.0
  */
 @Service
 public class IbanGeneratorService {

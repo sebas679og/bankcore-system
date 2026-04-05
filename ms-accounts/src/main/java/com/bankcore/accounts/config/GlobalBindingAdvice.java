@@ -38,7 +38,7 @@ import org.springframework.web.bind.annotation.InitBinder;
  *
  * @author Bankcore Team
  * @author Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @ControllerAdvice
 public class GlobalBindingAdvice {

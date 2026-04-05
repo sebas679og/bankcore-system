@@ -1,7 +1,11 @@
 package com.bankcore.accounts.controllers;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -48,6 +52,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 
+/** Integration tests for transaction service between accounts. */
 public class TransactionControllerIntegrationTest extends AbstractIntegrationTest {
 
   @Autowired private MockMvc mockMvc;
@@ -64,6 +69,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   private AccountEntity account;
 
+  /** Set up test data and reset mocks before each test. */
   @BeforeEach
   public void setUp() {
     Mockito.reset(customerClient);
@@ -72,6 +78,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
     account = accountRepository.save(AccountDataProvider.createMockAccount());
   }
 
+  /** Test configuration to provide mocked dependencies. */
   @TestConfiguration
   public static class TestConfig {
     @Bean
@@ -190,10 +197,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldReturn409WhenDepositingToNonexistentOrInactiveAccount() throws Exception {
-    UUID customerId = account.getCustomerId();
-    UUID accountId = account.getId();
-
-    TransactionRequest request =
+    final TransactionRequest request =
         TransactionRequest.builder()
             .amount(BigDecimal.valueOf(100.00))
             .description("test deposit")
@@ -204,12 +208,14 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
     account1.setStatus(AccountStatus.INACTIVE);
     accountRepository.save(account1);
 
+    UUID customerId = account.getCustomerId();
+
     Mockito.when(customerClient.getCustomerById(customerId))
         .thenReturn(new CustomerResponse(customerId, true, true));
 
     mockMvc
         .perform(
-            post("/api/accounts/{accountId}/deposit", accountId)
+            post("/api/accounts/{accountId}/deposit", account.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
                 .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
@@ -473,7 +479,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldPermanentlyBlockAccountOnFourthFailedPinAttempt() throws Exception {
-    UUID customerId = account.getCustomerId();
     UUID accountId = account.getId();
 
     AccountPinSecurity pinSecurity = account.getSecurity();
@@ -483,6 +488,8 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
     pinSecurity.setPermanentLock(false);
 
     accountPinSecurityRepository.save(pinSecurity);
+
+    UUID customerId = account.getCustomerId();
 
     TransactionRequest request =
         TransactionRequest.builder()
@@ -530,9 +537,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldPermanentlyBlockAccountAndFreezeOnNextAttempt() throws Exception {
-    UUID customerId = account.getCustomerId();
-    UUID accountId = account.getId();
-
     AccountPinSecurity pinSecurity = account.getSecurity();
     pinSecurity.setFailedAttempts(4);
     pinSecurity.setTemporaryLockUntil(Instant.now().minus(1, ChronoUnit.MINUTES));
@@ -549,6 +553,8 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .build();
 
     PinValidateRequest requestPin = PinValidateRequest.builder().pin(request.getPin()).build();
+    UUID customerId = account.getCustomerId();
+    UUID accountId = account.getId();
 
     Mockito.when(customerClient.getCustomerById(customerId))
         .thenReturn(new CustomerResponse(customerId, true, true));
@@ -595,8 +601,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
   @Test
   public void should_withdraw_successfully_when_balance_and_limit_are_sufficient()
       throws Exception {
-    UUID customerId = account.getCustomerId();
-    UUID accountId = account.getId();
     account.setBalance(BigDecimal.valueOf(500.00));
     accountRepository.save(account);
 
@@ -608,6 +612,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .build();
 
     PinValidateRequest requestPin = PinValidateRequest.builder().pin(request.getPin()).build();
+    UUID customerId = account.getCustomerId();
 
     Mockito.when(customerClient.getCustomerById(customerId))
         .thenReturn(new CustomerResponse(customerId, true, true));
@@ -617,7 +622,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
     mockMvc
         .perform(
-            post("/api/accounts/{accountId}/withdraw", accountId)
+            post("/api/accounts/{accountId}/withdraw", account.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
                 .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
@@ -633,7 +638,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
   @Test
   public void should_return_error_when_balance_is_insufficient() throws Exception {
     UUID customerId = account.getCustomerId();
-    UUID accountId = account.getId();
     account.setBalance(BigDecimal.valueOf(50.00));
     accountRepository.save(account);
 
@@ -654,7 +658,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
     mockMvc
         .perform(
-            post("/api/accounts/{accountId}/withdraw", accountId)
+            post("/api/accounts/{accountId}/withdraw", account.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
                 .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
@@ -664,8 +668,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void should_return_error_when_daily_limit_is_exceeded() throws Exception {
-    UUID customerId = account.getCustomerId();
-    UUID accountId = account.getId();
     account.setBalance(BigDecimal.valueOf(2000.00));
     accountRepository.save(account);
 
@@ -688,6 +690,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .build();
 
     PinValidateRequest requestPin = PinValidateRequest.builder().pin(request.getPin()).build();
+    UUID customerId = account.getCustomerId();
 
     Mockito.when(customerClient.getCustomerById(customerId))
         .thenReturn(new CustomerResponse(customerId, true, true));
@@ -697,7 +700,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
     mockMvc
         .perform(
-            post("/api/accounts/{accountId}/withdraw", accountId)
+            post("/api/accounts/{accountId}/withdraw", account.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
                 .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
@@ -1123,7 +1126,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldReturn200WhenFilteringByTransactionTypeDeposit() throws Exception {
-    UUID customerId = account.getCustomerId();
     int totalTransactions = 50;
 
     Instant now = Instant.now();
@@ -1142,7 +1144,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .perform(
                 get("/api/accounts/{accountId}/transactions", account.getId())
                     .param("type", typeToFilter.name())
-                    .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
+                    .with(user(account.getCustomerId().toString()).roles(UserRole.CUSTOMER.name())))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1162,7 +1164,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldReturn200WhenFilteringByTransactionTypeWithdrawal() throws Exception {
-    UUID customerId = account.getCustomerId();
     int totalTransactions = 50;
 
     Instant now = Instant.now();
@@ -1181,7 +1182,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .perform(
                 get("/api/accounts/{accountId}/transactions", account.getId())
                     .param("type", typeToFilter.name())
-                    .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
+                    .with(user(account.getCustomerId().toString()).roles(UserRole.CUSTOMER.name())))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1201,7 +1202,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldReturn200WhenFilteringByTransactionTypeTransferIn() throws Exception {
-    UUID customerId = account.getCustomerId();
     int totalTransactions = 50;
 
     Instant now = Instant.now();
@@ -1220,7 +1220,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .perform(
                 get("/api/accounts/{accountId}/transactions", account.getId())
                     .param("type", typeToFilter.name())
-                    .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
+                    .with(user(account.getCustomerId().toString()).roles(UserRole.CUSTOMER.name())))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1239,7 +1239,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldReturn200WhenFilteringByTransactionTypeTransferOut() throws Exception {
-    UUID customerId = account.getCustomerId();
     int totalTransactions = 50;
 
     Instant now = Instant.now();
@@ -1258,7 +1257,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .perform(
                 get("/api/accounts/{accountId}/transactions", account.getId())
                     .param("type", typeToFilter.name())
-                    .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
+                    .with(user(account.getCustomerId().toString()).roles(UserRole.CUSTOMER.name())))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1277,7 +1276,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldReturn200WhenFilteringByFromDate() throws Exception {
-    UUID customerId = account.getCustomerId();
     int totalTransactions = TransactionQueryParams.DEFAULT_SIZE;
 
     Instant now = Instant.now();
@@ -1295,7 +1293,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .perform(
                 get("/api/accounts/{accountId}/transactions", account.getId())
                     .param("fromDate", fromDate.toString())
-                    .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
+                    .with(user(account.getCustomerId().toString()).roles(UserRole.CUSTOMER.name())))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1311,7 +1309,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldReturn200WhenFilteringByToDate() throws Exception {
-    UUID customerId = account.getCustomerId();
     int totalTransactions = TransactionQueryParams.DEFAULT_SIZE;
 
     Instant now = Instant.now();
@@ -1329,7 +1326,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
             .perform(
                 get("/api/accounts/{accountId}/transactions", account.getId())
                     .param("toDate", toDate.toString())
-                    .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
+                    .with(user(account.getCustomerId().toString()).roles(UserRole.CUSTOMER.name())))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -1345,7 +1342,6 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
 
   @Test
   public void shouldReturn200WhenFilteringByFromDateAndToDate() throws Exception {
-    UUID customerId = account.getCustomerId();
     int totalTransactions = TransactionQueryParams.DEFAULT_SIZE;
 
     Instant now = Instant.now();
@@ -1365,7 +1361,7 @@ public class TransactionControllerIntegrationTest extends AbstractIntegrationTes
                 get("/api/accounts/{accountId}/transactions", account.getId())
                     .param("fromDate", fromDate.toString())
                     .param("toDate", toDate.toString())
-                    .with(user(customerId.toString()).roles(UserRole.CUSTOMER.name())))
+                    .with(user(account.getCustomerId().toString()).roles(UserRole.CUSTOMER.name())))
             .andExpect(status().isOk())
             .andReturn();
 

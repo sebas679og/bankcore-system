@@ -2,8 +2,11 @@ package com.bankcore.accounts.services.processors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import com.bankcore.accounts.dto.requests.TransactionQueryParams;
 import com.bankcore.accounts.dto.responses.TransactionHistoryResponse;
@@ -31,6 +34,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
+/** Unit tests for {@link TransactionHistoryProcessor}. */
 @ExtendWith(MockitoExtension.class)
 @DisplayName("TransactionHistoryProcessor")
 public class TransactionHistoryProcessorTest {
@@ -88,10 +92,9 @@ public class TransactionHistoryProcessorTest {
     void shouldNotQueryRepositoryWhenAccountMissing() {
       when(accountRepository.existsByIdAndCustomerId(accountId, customerId)).thenReturn(false);
 
-      try {
-        processor.getTransactions(accountId, customerId, baseParams(1, 10));
-      } catch (AccountNotFoundException ignored) {
-      }
+      assertThrows(
+          AccountNotFoundException.class,
+          () -> processor.getTransactions(accountId, customerId, baseParams(1, 10)));
 
       verifyNoInteractions(repository);
     }

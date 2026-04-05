@@ -2,16 +2,25 @@ package com.bankcore.accounts.services;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import com.bankcore.accounts.AccountDataProvider;
 import com.bankcore.accounts.dto.requests.AccountRegisterRequest;
 import com.bankcore.accounts.dto.responses.AccountRegisterResponse;
 import com.bankcore.accounts.dto.responses.UserAccountDetailResponse;
 import com.bankcore.accounts.dto.responses.UserAccountResponse;
-import com.bankcore.accounts.exceptions.*;
+import com.bankcore.accounts.exceptions.AccountNotFoundException;
+import com.bankcore.accounts.exceptions.BusinessException;
+import com.bankcore.accounts.exceptions.ResourceConflictException;
 import com.bankcore.accounts.integrations.client.CustomerClient;
 import com.bankcore.accounts.models.AccountEntity;
 import com.bankcore.accounts.models.TransactionEntity;
@@ -35,6 +44,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/**
+ * Unit tests for {@link AccountManagementImpl} covering account registration and retrieval of user.
+ */
 @ExtendWith(MockitoExtension.class)
 public class AccountManagementImplTest {
 
@@ -178,7 +190,7 @@ public class AccountManagementImplTest {
   }
 
   @Test
-  void shouldThrowIllegalArgumentException_whenIdIsNotValidUUID() {
+  void shouldThrowIllegalArgumentException_whenIdIsNotValidUuid() {
     assertThatThrownBy(
             () -> accountManagement.getCurrentUserAccounts(UUID.fromString("not-a-uuid")))
         .isInstanceOf(IllegalArgumentException.class);
@@ -228,8 +240,7 @@ public class AccountManagementImplTest {
   }
 
   @Test
-  void
-      getAccountDetails_whenAccountExistsWithNoTransactions_returnsMappedResponseWithNullLastTransactionAt() {
+  void shouldReturnNullLastTxAt_whenNoTx() {
 
     AccountEntity mockAccount = AccountDataProvider.createMockAccount(customerId, "Some Alias");
     UUID accountId = mockAccount.getId();
@@ -266,8 +277,7 @@ public class AccountManagementImplTest {
   }
 
   @Test
-  void
-      getAccountDetails_whenAccountExistsWithTransactions_returnsMappedResponseWithLastTransactionAt() {
+  void shouldReturnLastTxAt_whenHasTx() {
 
     AccountEntity mockAccount = AccountDataProvider.createMockAccount(customerId, "Some Alias");
     UUID accountId = mockAccount.getId();
@@ -310,7 +320,7 @@ public class AccountManagementImplTest {
   }
 
   @Test
-  void getAccountDetails_whenAccountNotFound_throwsAccountNotFoundException() {
+  void shouldThrowAccNotFoundEx_whenNotFound() {
 
     AccountEntity mockAccount = AccountDataProvider.createMockAccount(customerId, "Some Alias");
     UUID accountId = mockAccount.getId();
@@ -326,7 +336,7 @@ public class AccountManagementImplTest {
   }
 
   @Test
-  void getAccountDetails_whenAccountBelongsToAnotherCustomer_throwsAccountNotFoundException() {
+  void shouldThrowAccNotFoundEx_whenOtherCustomer() {
 
     AccountEntity mockAccount = AccountDataProvider.createMockAccount(customerId, "Some Alias");
     UUID accountId = mockAccount.getId();

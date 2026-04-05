@@ -14,7 +14,7 @@ import lombok.Setter;
  * ensure that all required fields are provided.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Getter
 @Setter

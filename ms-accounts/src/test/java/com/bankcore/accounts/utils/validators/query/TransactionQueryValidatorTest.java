@@ -2,7 +2,10 @@ package com.bankcore.accounts.utils.validators.query;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 
 import com.bankcore.accounts.dto.requests.TransactionQueryParams;
 import jakarta.validation.ConstraintValidatorContext;
@@ -16,6 +19,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+/** Unit tests for {@link TransactionQueryValidator}. */
 @ExtendWith(MockitoExtension.class)
 @DisplayName("TransactionQueryValidator")
 public class TransactionQueryValidatorTest {

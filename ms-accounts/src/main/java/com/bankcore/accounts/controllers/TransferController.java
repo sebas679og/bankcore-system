@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author BankCore
  * @author Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @RestController
 @RequiredArgsConstructor
@@ -96,7 +96,10 @@ public class TransferController {
         @ApiResponse(
             responseCode = "403",
             description =
-                "The authenticated user does not have permission to access this endpoint - Client not active in the system",
+                """
+                    The authenticated user does not have permission to
+                    access this endpoint - Client not active in the system
+                    """,
             content =
                 @Content(
                     mediaType = MediaType.APPLICATION_JSON_VALUE,

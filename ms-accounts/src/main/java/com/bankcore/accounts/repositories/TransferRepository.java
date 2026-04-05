@@ -20,6 +20,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * </ul>
  *
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public interface TransferRepository extends JpaRepository<TransferEntity, UUID> {}

@@ -35,7 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
  * utility to set withdrawal limits based on account types.
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Slf4j
 @Service

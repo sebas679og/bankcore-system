@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
-class UserDetailsServiceImplTest {
+class UserDetailsServiceImplUnitTest {
 
   @Mock private UserRepository userRepository;
 
@@ -30,17 +30,17 @@ class UserDetailsServiceImplTest {
 
   @Test
   void shouldThrow_whenUserNotFound() {
-    String testUUID = UUID.randomUUID().toString();
-    when(userRepository.findById(UUID.fromString(testUUID))).thenReturn(Optional.empty());
+    String testUuid = UUID.randomUUID().toString();
+    when(userRepository.findById(UUID.fromString(testUuid))).thenReturn(Optional.empty());
 
-    assertThatThrownBy(() -> userDetailsService.loadUserByUsername(testUUID))
+    assertThatThrownBy(() -> userDetailsService.loadUserByUsername(testUuid))
         .isInstanceOf(UsernameNotFoundException.class);
 
-    verify(userRepository, times(1)).findById(UUID.fromString(testUUID));
+    verify(userRepository, times(1)).findById(UUID.fromString(testUuid));
   }
 
   @Test
-  void shouldThrow_whenUUIDFormatIsInvalid() {
+  void shouldThrow_whenUuidFormatIsInvalid() {
     assertThatThrownBy(() -> userDetailsService.loadUserByUsername("no-es-un-uuid"))
         .isInstanceOf(IllegalArgumentException.class);
 
@@ -50,28 +50,28 @@ class UserDetailsServiceImplTest {
   @Test
   void shouldMapUsernameAndPassword_correctly() {
     UserEntity user = DataProvider.createMockUser();
-    String testUUID = UUID.randomUUID().toString();
+    String testUuid = UUID.randomUUID().toString();
 
-    user.setId(UUID.fromString(testUUID));
+    user.setId(UUID.fromString(testUuid));
     user.setPassword("$2a$10$hashedPasswordExample");
 
-    when(userRepository.findById(UUID.fromString(testUUID))).thenReturn(Optional.of(user));
+    when(userRepository.findById(UUID.fromString(testUuid))).thenReturn(Optional.of(user));
 
-    UserDetails result = userDetailsService.loadUserByUsername(testUUID);
+    UserDetails result = userDetailsService.loadUserByUsername(testUuid);
 
-    assertThat(result.getUsername()).isEqualTo(testUUID);
+    assertThat(result.getUsername()).isEqualTo(testUuid);
     assertThat(result.getPassword()).isEqualTo("$2a$10$hashedPasswordExample");
   }
 
   @Test
   void shouldMapRole_correctly() {
     UserEntity user = DataProvider.createMockUser();
-    String testUUID = UUID.randomUUID().toString();
-    user.setId(UUID.fromString(testUUID));
+    String testUuid = UUID.randomUUID().toString();
+    user.setId(UUID.fromString(testUuid));
 
-    when(userRepository.findById(UUID.fromString(testUUID))).thenReturn(Optional.of(user));
+    when(userRepository.findById(UUID.fromString(testUuid))).thenReturn(Optional.of(user));
 
-    UserDetails result = userDetailsService.loadUserByUsername(testUUID);
+    UserDetails result = userDetailsService.loadUserByUsername(testUuid);
 
     assertThat(result.getAuthorities())
         .hasSize(1)
@@ -81,12 +81,12 @@ class UserDetailsServiceImplTest {
   @Test
   void shouldBeFullyEnabled_whenActive() {
     UserEntity user = DataProvider.createMockUser();
-    String testUUID = UUID.randomUUID().toString();
-    user.setId(UUID.fromString(testUUID));
+    String testUuid = UUID.randomUUID().toString();
+    user.setId(UUID.fromString(testUuid));
 
-    when(userRepository.findById(UUID.fromString(testUUID))).thenReturn(Optional.of(user));
+    when(userRepository.findById(UUID.fromString(testUuid))).thenReturn(Optional.of(user));
 
-    UserDetails result = userDetailsService.loadUserByUsername(testUUID);
+    UserDetails result = userDetailsService.loadUserByUsername(testUuid);
 
     assertThat(result.isEnabled()).isTrue();
     assertThat(result.isAccountNonExpired()).isTrue();
@@ -98,13 +98,13 @@ class UserDetailsServiceImplTest {
   void shouldBeDisabledAndExpired_whenInactive() {
 
     UserEntity user = DataProvider.createMockUser();
-    String testUUID = UUID.randomUUID().toString();
-    user.setId(UUID.fromString(testUUID));
+    String testUuid = UUID.randomUUID().toString();
+    user.setId(UUID.fromString(testUuid));
     user.setStatus(CustomerStatus.INACTIVE);
 
-    when(userRepository.findById(UUID.fromString(testUUID))).thenReturn(Optional.of(user));
+    when(userRepository.findById(UUID.fromString(testUuid))).thenReturn(Optional.of(user));
 
-    UserDetails result = userDetailsService.loadUserByUsername(testUUID);
+    UserDetails result = userDetailsService.loadUserByUsername(testUuid);
 
     assertThat(result.isEnabled()).isFalse();
     assertThat(result.isAccountNonExpired()).isFalse();
@@ -117,13 +117,13 @@ class UserDetailsServiceImplTest {
   void shouldBeDisabledAndExpired_whenPendingVerification() {
 
     UserEntity user = DataProvider.createMockUser();
-    String testUUID = UUID.randomUUID().toString();
-    user.setId(UUID.fromString(testUUID));
+    String testUuid = UUID.randomUUID().toString();
+    user.setId(UUID.fromString(testUuid));
     user.setStatus(CustomerStatus.PENDING_VERIFICATION);
 
-    when(userRepository.findById(UUID.fromString(testUUID))).thenReturn(Optional.of(user));
+    when(userRepository.findById(UUID.fromString(testUuid))).thenReturn(Optional.of(user));
 
-    UserDetails result = userDetailsService.loadUserByUsername(testUUID);
+    UserDetails result = userDetailsService.loadUserByUsername(testUuid);
 
     assertThat(result.isEnabled()).isFalse();
     assertThat(result.isAccountNonExpired()).isFalse();
@@ -135,13 +135,13 @@ class UserDetailsServiceImplTest {
   void shouldBeLockedAndExpired_whenBlocked() {
 
     UserEntity user = DataProvider.createMockUser();
-    String testUUID = UUID.randomUUID().toString();
-    user.setId(UUID.fromString(testUUID));
+    String testUuid = UUID.randomUUID().toString();
+    user.setId(UUID.fromString(testUuid));
     user.setStatus(CustomerStatus.BLOCKED);
 
-    when(userRepository.findById(UUID.fromString(testUUID))).thenReturn(Optional.of(user));
+    when(userRepository.findById(UUID.fromString(testUuid))).thenReturn(Optional.of(user));
 
-    UserDetails result = userDetailsService.loadUserByUsername(testUUID);
+    UserDetails result = userDetailsService.loadUserByUsername(testUuid);
 
     assertThat(result.isAccountNonLocked()).isFalse();
     assertThat(result.isAccountNonExpired()).isFalse();

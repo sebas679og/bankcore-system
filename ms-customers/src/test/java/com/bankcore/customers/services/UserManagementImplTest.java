@@ -15,7 +15,11 @@ import static org.mockito.Mockito.when;
 import com.bankcore.customers.DataProvider;
 import com.bankcore.customers.dto.requests.PinValidateRequest;
 import com.bankcore.customers.dto.requests.RegisterRequest;
-import com.bankcore.customers.dto.responses.*;
+import com.bankcore.customers.dto.responses.CustomerDetailsValidateResponse;
+import com.bankcore.customers.dto.responses.CustomerValidateResponse;
+import com.bankcore.customers.dto.responses.PinValidateResponse;
+import com.bankcore.customers.dto.responses.RegisterResponse;
+import com.bankcore.customers.dto.responses.UserProfileResponse;
 import com.bankcore.customers.exceptions.ResourceConflictException;
 import com.bankcore.customers.exceptions.UserProfileNotFoundException;
 import com.bankcore.customers.model.UserEntity;
@@ -31,6 +35,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/** Unit tests for {@link UserManagementImpl}. */
 @ExtendWith(MockitoExtension.class)
 class UserManagementImplTest {
   @Mock private UserRepository userRepository;
@@ -254,7 +259,7 @@ class UserManagementImplTest {
 
     UUID customerId = UUID.randomUUID();
 
-    PinValidateRequest request = PinValidateRequest.builder().pin("1234").build();
+    final PinValidateRequest request = PinValidateRequest.builder().pin("1234").build();
 
     UserEntity user = new UserEntity();
     user.setAtmPin("encoded-pin");
@@ -275,7 +280,7 @@ class UserManagementImplTest {
 
     UUID customerId = UUID.randomUUID();
 
-    PinValidateRequest request = PinValidateRequest.builder().pin("9999").build();
+    final PinValidateRequest request = PinValidateRequest.builder().pin("9999").build();
 
     UserEntity user = new UserEntity();
     user.setAtmPin("encoded-pin");

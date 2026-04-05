@@ -22,7 +22,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST controller that exposes endpoints for managing transactions related to accounts.
@@ -38,7 +44,7 @@ import org.springframework.web.bind.annotation.*;
  * </ul>
  *
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @RestController
 @RequiredArgsConstructor
@@ -101,7 +107,10 @@ public class TransactionController {
         @ApiResponse(
             responseCode = "403",
             description =
-                "The authenticated user does not have permission to access this endpoint - Client not active in the system",
+                """
+                    The authenticated user does not have permission
+                    to access this endpoint - Client not active in the system
+                    """,
             content =
                 @Content(
                     mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -269,7 +278,10 @@ public class TransactionController {
   @Operation(
       summary = "Get account transaction history",
       description =
-          "Retrieve a paginated list of transactions for a given account Supports filtering by date range and transaction type.",
+          """
+              Retrieve a paginated list of transactions for
+              a given account Supports filtering by date range and transaction type.
+              """,
       security = @SecurityRequirement(name = "Security Token"))
   @ApiResponses(
       value = {
@@ -297,7 +309,10 @@ public class TransactionController {
         @ApiResponse(
             responseCode = "403",
             description =
-                "The authenticated user does not have permission to access this endpoint - Client not active in the system",
+                """
+                    The authenticated user does not have permission
+                    to access this endpoint - Client not active in the system
+                    """,
             content =
                 @Content(
                     mediaType = MediaType.APPLICATION_JSON_VALUE,

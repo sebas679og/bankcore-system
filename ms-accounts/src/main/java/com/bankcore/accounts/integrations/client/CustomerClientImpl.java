@@ -32,7 +32,7 @@ import reactor.core.publisher.Mono;
  * </ul>
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.1
+ * @version 0.2.0
  */
 @Slf4j
 @Component
@@ -81,7 +81,7 @@ public class CustomerClientImpl implements CustomerClient {
   }
 
   /**
-   * Get the customer details by their id
+   * Get the customer details by their id.
    *
    * @param customerId the {@link UUID} representing the customer's unique ID
    * @return a {@link CustomerDetailsResponse} contains the detailed information of the client

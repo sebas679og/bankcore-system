@@ -14,11 +14,21 @@ import org.springframework.web.reactive.function.client.WebClient;
  * internal authentication.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Configuration
 public class WebClientConfig {
 
+  /**
+   * Creates a {@link WebClient} bean configured to communicate with the ms-customers microservice.
+   *
+   * <p>The base URL for the ms-customers service is injected from application properties, and a
+   * filter is added to attach a service-level JWT token to each request for authentication.
+   *
+   * @param customersUrl the base URL of the ms-customers microservice
+   * @param tokenProvider the service responsible for generating JWT tokens for authentication
+   * @return a configured {@link WebClient} instance
+   */
   @Bean
   public WebClient customersWebClient(
       @Value("${ms-customers.url}") String customersUrl, JwtTokenProviderService tokenProvider) {

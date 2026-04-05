@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
  * </ul>
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Component
 @RequiredArgsConstructor

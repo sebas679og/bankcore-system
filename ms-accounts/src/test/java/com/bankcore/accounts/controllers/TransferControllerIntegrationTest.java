@@ -36,6 +36,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+/** Integration tests for account transfer service. */
 public class TransferControllerIntegrationTest extends AbstractIntegrationTest {
 
   @Autowired private MockMvc mockMvc;
@@ -54,6 +55,12 @@ public class TransferControllerIntegrationTest extends AbstractIntegrationTest {
   private AccountEntity sourceAccount;
   private AccountEntity destinationAccount;
 
+  /**
+   * Sets up the test environment before each test case. This method resets the mocked
+   * CustomerClient and clears all data from the repositories to ensure a clean state for each test.
+   * It also creates and saves a source account with a predefined initial balance and a destination
+   * account for use in the transfer tests.
+   */
   @BeforeEach
   public void setUp() {
     Mockito.reset(customerClient);
@@ -64,6 +71,12 @@ public class TransferControllerIntegrationTest extends AbstractIntegrationTest {
     destinationAccount = accountRepository.save(AccountDataProvider.createMockAccount());
   }
 
+  /**
+   * Test configuration class to provide mocked dependencies for the integration tests. This class
+   * defines a bean for the CustomerClient, which is mocked using Mockito. By providing this mock
+   * implementation, we can control the behavior of the CustomerClient during the tests and simulate
+   * various scenarios without relying on actual external service calls.
+   */
   @TestConfiguration
   public static class TestConfig {
     @Bean
@@ -256,7 +269,7 @@ public class TransferControllerIntegrationTest extends AbstractIntegrationTest {
   }
 
   @Test
-  public void SourceAccountNotFoundException() throws Exception {
+  public void sourceAccountNotFoundException() throws Exception {
     UUID customerId = sourceAccount.getCustomerId();
 
     TransferRequest request =

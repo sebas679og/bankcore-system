@@ -29,8 +29,10 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>This controller exposes endpoints under {@code /api/auth} for user registration and other
  * authentication workflows.
  *
- * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @author BankCore Team
+ * @author Sebastian Orjuela
+ * @author Cristian Ortiz
+ * @version 0.1.0
  */
 @RestController
 @RequestMapping("/api/auth")
@@ -105,7 +107,10 @@ public class UserController {
   @Operation(
       summary = "User Login",
       description =
-          "Authenticates a user and returns a JWT token along with user uuid, token type and expire time in seconds.")
+          """
+              Authenticates a user and returns a JWT token along
+              with user uuid, token type and expire time in seconds.
+              """)
   @ApiResponses(
       value = {
         @ApiResponse(

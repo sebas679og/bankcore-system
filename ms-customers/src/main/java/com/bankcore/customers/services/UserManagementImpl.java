@@ -3,7 +3,12 @@ package com.bankcore.customers.services;
 import com.bankcore.customers.dto.requests.LoginRequest;
 import com.bankcore.customers.dto.requests.PinValidateRequest;
 import com.bankcore.customers.dto.requests.RegisterRequest;
-import com.bankcore.customers.dto.responses.*;
+import com.bankcore.customers.dto.responses.CustomerDetailsValidateResponse;
+import com.bankcore.customers.dto.responses.CustomerValidateResponse;
+import com.bankcore.customers.dto.responses.LoginResponse;
+import com.bankcore.customers.dto.responses.PinValidateResponse;
+import com.bankcore.customers.dto.responses.RegisterResponse;
+import com.bankcore.customers.dto.responses.UserProfileResponse;
 import com.bankcore.customers.exceptions.ResourceConflictException;
 import com.bankcore.customers.exceptions.UserProfileNotFoundException;
 import com.bankcore.customers.model.UserEntity;
@@ -40,8 +45,10 @@ import org.springframework.transaction.annotation.Transactional;
  * <p>Business rules and security requirements are enforced at this layer before interacting with
  * the persistence layer.
  *
- * @author BankCore Team - Sebastian Orjuela - Cristian
- * @version 1.0
+ * @author BankCore Team
+ * @author Sebastian Orjuela
+ * @author Cristian Ortiz
+ * @version 0.1.0
  */
 @Service
 @RequiredArgsConstructor

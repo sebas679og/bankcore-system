@@ -26,7 +26,7 @@ import java.math.BigInteger;
  * </ul>
  *
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public class IbanValidator implements ConstraintValidator<ValidIban, String> {
 
@@ -45,14 +45,24 @@ public class IbanValidator implements ConstraintValidator<ValidIban, String> {
    */
   @Override
   public boolean isValid(String iban, ConstraintValidatorContext context) {
-    if (iban == null || iban.isBlank()) return false;
+    if (iban == null || iban.isBlank()) {
+      return false;
+    }
 
     String normalized = iban.trim().toUpperCase().replaceAll("\\s+", "");
 
-    if (normalized.length() != IBAN_ES_LENGTH) return false;
-    if (!normalized.startsWith(COUNTRY_CODE)) return false;
-    if (!normalized.substring(2, 4).matches("\\d{2}")) return false;
-    if (!normalized.substring(4).matches("\\d{20}")) return false;
+    if (normalized.length() != IBAN_ES_LENGTH) {
+      return false;
+    }
+    if (!normalized.startsWith(COUNTRY_CODE)) {
+      return false;
+    }
+    if (!normalized.substring(2, 4).matches("\\d{2}")) {
+      return false;
+    }
+    if (!normalized.substring(4).matches("\\d{20}")) {
+      return false;
+    }
 
     String rearranged = normalized.substring(4) + normalized.substring(0, 4);
     String numeric = IbanUtils.convertLettersToNumbers(rearranged);

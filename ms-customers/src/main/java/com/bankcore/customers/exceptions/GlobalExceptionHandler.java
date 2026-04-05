@@ -17,8 +17,10 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
  * <p>This component intercepts exceptions thrown by controllers and transforms them into structured
  * {@link ErrorResponse} objects, ensuring consistent API error responses across the system.
  *
- * @author Bankcore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
+ * @author Cristian Ortiz
+ * @version 0.1.0
  */
 @Slf4j
 @RestControllerAdvice

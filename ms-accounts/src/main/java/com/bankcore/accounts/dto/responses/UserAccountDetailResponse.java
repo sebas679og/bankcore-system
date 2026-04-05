@@ -14,7 +14,7 @@ import lombok.Value;
  * require full account details beyond the summary view.
  *
  * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @version 0.1.0
  */
 @Value
 @Builder

@@ -15,8 +15,9 @@ import lombok.Setter;
  * and returned to the client. Sensitive data such as password or ATM PIN are intentionally
  * excluded.
  *
- * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
+ * @version 0.1.0
  */
 @Getter
 @Setter

@@ -21,8 +21,9 @@ import org.springframework.stereotype.Service;
  * internal {@link UserEntity} state to a {@link UserDetails} object that the security framework can
  * process for authentication and authorization.
  *
- * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @author BankCore Team
+ * @author Cristian Ortiz
+ * @version 0.1.0
  */
 @Service
 @Slf4j

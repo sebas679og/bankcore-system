@@ -10,8 +10,9 @@ import lombok.Setter;
  * <p>Contains the security token required for subsequent API requests and basic metadata regarding
  * the session and the authenticated customer.
  *
- * @author BankCore Team - Cristian Ortiz
- * @version 1.0
+ * @author BankCore Team
+ * @author Cristian Ortiz
+ * @version 0.1.0
  */
 @Getter
 @Setter

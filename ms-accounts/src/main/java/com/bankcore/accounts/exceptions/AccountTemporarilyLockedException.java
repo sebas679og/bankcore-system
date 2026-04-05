@@ -10,7 +10,7 @@ import java.time.Instant;
  * by an {@link Instant} value, after which the account may become available again.
  *
  * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  * @see RuntimeException
  * @see java.time.Instant
  */

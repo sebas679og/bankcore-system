@@ -16,7 +16,7 @@ import java.util.UUID;
  * state, and returning structured responses.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public interface TransactionService {
 
@@ -44,7 +44,7 @@ public interface TransactionService {
   TransactionResponse makeWithdrawal(TransactionRequest request, UUID accountId, UUID customerId);
 
   /**
-   * Execute a transfer between accounts
+   * Execute a transfer between accounts.
    *
    * @param request the {@link TransactionRequest} It contains the details of the transfer
    * @param customerId the {@link UUID} Representing the client who owns the source account

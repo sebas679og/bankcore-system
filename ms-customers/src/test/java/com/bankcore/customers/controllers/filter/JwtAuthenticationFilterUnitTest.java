@@ -1,7 +1,14 @@
 package com.bankcore.customers.controllers.filter;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
 
 import com.bankcore.customers.exceptions.NoAuthoritiesException;
 import com.bankcore.customers.services.JwtService;
@@ -24,6 +31,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
+/** Unit tests for {@link JwtAuthenticationFilter} to verify its behavior in various scenarios. */
 @ExtendWith(MockitoExtension.class)
 public class JwtAuthenticationFilterUnitTest {
 
@@ -95,7 +103,7 @@ public class JwtAuthenticationFilterUnitTest {
 
     assertThat(SecurityContextHolder.getContext().getAuthentication()).isNull();
     verify(jwtService).validateToken(invalidToken);
-    verify(jwtService, never()).getUUIDfromToken(invalidToken);
+    verify(jwtService, never()).getUuidFromToken(invalidToken);
     verify(jwtService, never()).getRolesFromToken(invalidToken);
     verify(filterChain).doFilter(request, response);
   }
@@ -107,12 +115,12 @@ public class JwtAuthenticationFilterUnitTest {
 
     String validToken = "valid.jwt.token";
     String uuid = UUID.randomUUID().toString();
-    List<String> roles = List.of("ROLE_" + UserRole.CUSTOMER.name());
+    final List<String> roles = List.of("ROLE_" + UserRole.CUSTOMER.name());
 
     request.addHeader("Authorization", "Bearer " + validToken);
 
     when(jwtService.validateToken(validToken)).thenReturn(true);
-    when(jwtService.getUUIDfromToken(validToken)).thenReturn(uuid);
+    when(jwtService.getUuidFromToken(validToken)).thenReturn(uuid);
     when(jwtService.getRolesFromToken(validToken)).thenReturn(roles);
 
     jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
@@ -146,12 +154,12 @@ public class JwtAuthenticationFilterUnitTest {
   }
 
   @Test
-  void shouldNotContinueFilterChain_whenUUIDThrowsException() throws ServletException, IOException {
+  void shouldNotContinueFilterChain_whenUuidThrowsException() throws ServletException, IOException {
     String token = "Some token";
     request.addHeader("Authorization", "Bearer " + token);
 
     when(jwtService.validateToken(token)).thenReturn(true);
-    when(jwtService.getUUIDfromToken(token))
+    when(jwtService.getUuidFromToken(token))
         .thenThrow(new RuntimeException("UUID extraction error"));
 
     jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
@@ -170,13 +178,13 @@ public class JwtAuthenticationFilterUnitTest {
     request.addHeader("Authorization", "Bearer " + baseToken);
 
     when(jwtService.validateToken(baseToken)).thenReturn(true);
-    when(jwtService.getUUIDfromToken(baseToken)).thenReturn(UUID.randomUUID().toString());
+    when(jwtService.getUuidFromToken(baseToken)).thenReturn(UUID.randomUUID().toString());
     when(jwtService.getRolesFromToken(baseToken)).thenReturn(List.of("ROLENUM1"));
 
     jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
 
     verify(jwtService).validateToken(baseToken);
-    verify(jwtService).getUUIDfromToken(baseToken);
+    verify(jwtService).getUuidFromToken(baseToken);
   }
 
   @Test

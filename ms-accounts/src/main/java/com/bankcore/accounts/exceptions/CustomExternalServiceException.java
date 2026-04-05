@@ -5,7 +5,7 @@ package com.bankcore.accounts.exceptions;
  * service.
  *
  * @author BankCore Team - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 public class CustomExternalServiceException extends RuntimeException {
   public CustomExternalServiceException(String message) {

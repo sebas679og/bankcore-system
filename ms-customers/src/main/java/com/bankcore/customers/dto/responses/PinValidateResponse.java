@@ -16,8 +16,9 @@ import lombok.Setter;
  * <p>This response is typically consumed by other internal services to determine if a transaction
  * can proceed.
  *
- * @author Bankcore Team - Sebastian Orjuela
- * @version 1.0
+ * @author Bankcore Team
+ * @author Sebastian Orjuela
+ * @version 0.1.0
  */
 @Setter
 @Getter

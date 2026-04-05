@@ -14,7 +14,7 @@ import java.util.UUID;
  * request and response handling.
  *
  * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @version 0.2.0
  */
 public interface CustomerClient {
 
@@ -36,7 +36,7 @@ public interface CustomerClient {
   PinValidateResponse validateCustomerPin(UUID customerId, PinValidateRequest request);
 
   /**
-   * Get the customer details by their id
+   * Get the customer details by their id.
    *
    * @param customerId the {@link UUID} representing the customer's unique ID
    * @return a {@link CustomerDetailsResponse} contains the detailed information of the client

@@ -15,7 +15,7 @@ import lombok.Value;
  * accounts involved, financial amounts, and timestamps.
  *
  * @author BankcoreTeam - Sebastian Orjuela
- * @version 1.0
+ * @version 0.1.0
  */
 @Value
 @Builder

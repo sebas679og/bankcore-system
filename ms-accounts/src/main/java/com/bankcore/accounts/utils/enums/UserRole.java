@@ -20,6 +20,6 @@ public enum UserRole {
    */
   ADMIN,
 
-  /** Internal user used only for queries between microservices */
+  /** Internal user used only for queries between microservices. */
   SERVICE
 }

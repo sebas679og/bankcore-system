@@ -29,6 +29,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+/** Integration tests for {@link ProfileController}. */
 @Transactional
 @ActiveProfiles("test")
 public class ProfileControllerIntegrationTest extends AbstractIntegrationTest {
@@ -45,6 +46,11 @@ public class ProfileControllerIntegrationTest extends AbstractIntegrationTest {
 
   @Autowired private PasswordEncoder passwordEncoder;
 
+  /**
+   * Initializes the test environment by creating and saving a mock user in the database before each
+   * test case. The user's ATM PIN is encoded using the configured password encoder to ensure that
+   * it matches the expected format for authentication and validation tests.
+   */
   @BeforeEach
   public void init() {
     UserEntity user = DataProvider.createMockUser();

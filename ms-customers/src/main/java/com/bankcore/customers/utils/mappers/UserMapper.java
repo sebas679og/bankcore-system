@@ -20,8 +20,10 @@ import org.mapstruct.Named;
  *
  * <p>This mapper ensures that only non-sensitive data is exposed to the API layer.
  *
- * @author BankCore Team - Sebastian Orjuela - Cristian Ortiz
- * @version 1.0
+ * @author BankCore Team
+ * @author Sebastian Orjuela
+ * @author Cristian Ortiz
+ * @version 0.1.0
  */
 @Mapper(componentModel = "spring")
 public interface UserMapper {
