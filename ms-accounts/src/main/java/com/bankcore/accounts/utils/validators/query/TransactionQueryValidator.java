@@ -52,7 +52,6 @@ public class TransactionQueryValidator
    */
   @Override
   public boolean isValid(TransactionQueryParams values, ConstraintValidatorContext context) {
-
     if (values == null) {
       return true;
     }
@@ -60,6 +59,25 @@ public class TransactionQueryValidator
     context.disableDefaultConstraintViolation();
     boolean isValid = true;
 
+    isValid &= validateDates(values, context);
+
+    isValid &= validateTransactionType(values, context);
+
+    return isValid;
+  }
+
+  /**
+   * Validates the date parameters in the transaction query.
+   *
+   * <p>Checks that {@code fromDate} and {@code toDate} are in valid ISO-8601 format and that {@code
+   * fromDate} is not after {@code toDate}.
+   *
+   * @param values the transaction query parameters containing the dates to validate
+   * @param context the validation context used to report errors
+   * @return {@code true} if the dates are valid, {@code false} otherwise
+   */
+  private boolean validateDates(TransactionQueryParams values, ConstraintValidatorContext context) {
+    boolean valid = true;
     Instant from = null;
     Instant to = null;
 
@@ -69,7 +87,7 @@ public class TransactionQueryValidator
       }
     } catch (DateTimeParseException ex) {
       addError(context, "fromDate must be ISO-8601");
-      isValid = false;
+      valid = false;
     }
 
     try {
@@ -78,24 +96,39 @@ public class TransactionQueryValidator
       }
     } catch (DateTimeParseException ex) {
       addError(context, "toDate must be ISO-8601");
-      isValid = false;
+      valid = false;
     }
 
     if (from != null && to != null && from.isAfter(to)) {
       addError(context, "fromDate cannot be after toDate");
-      isValid = false;
+      valid = false;
     }
 
-    if (values.getType() != null) {
-      try {
-        TransactionType.valueOf(values.getType().toUpperCase(Locale.ROOT));
-      } catch (IllegalArgumentException ex) {
-        addError(context, "Invalid transaction type");
-        isValid = false;
-      }
+    return valid;
+  }
+
+  /**
+   * Validates the transaction type parameter in the transaction query.
+   *
+   * <p>Checks that if {@code type} is provided, it matches a valid {@link TransactionType}.
+   *
+   * @param values the transaction query parameters containing the type to validate
+   * @param context the validation context used to report errors
+   * @return {@code true} if the transaction type is valid or not provided, {@code false} otherwise
+   */
+  private boolean validateTransactionType(
+      TransactionQueryParams values, ConstraintValidatorContext context) {
+    if (values.getType() == null) {
+      return true;
     }
 
-    return isValid;
+    try {
+      TransactionType.valueOf(values.getType().toUpperCase(Locale.ROOT));
+      return true;
+    } catch (IllegalArgumentException ex) {
+      addError(context, "Invalid transaction type");
+      return false;
+    }
   }
 
   /**

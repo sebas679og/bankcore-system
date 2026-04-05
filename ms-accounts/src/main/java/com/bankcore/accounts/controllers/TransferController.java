@@ -70,70 +70,69 @@ public class TransferController {
           @Content(
               mediaType = MediaType.APPLICATION_JSON_VALUE,
               schema = @Schema(implementation = TransferRequest.class)))
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Deposit registered in account",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = TransferResponse.class))),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Validation error - Invalid input fields, incorrect pin",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Authentication credentials were not provided or are invalid",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description =
-                """
+  @ApiResponses({
+    @ApiResponse(
+        responseCode = "200",
+        description = "Deposit registered in account",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = TransferResponse.class))),
+    @ApiResponse(
+        responseCode = "400",
+        description = "Validation error - Invalid input fields, incorrect pin",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "401",
+        description = "Authentication credentials were not provided or are invalid",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "403",
+        description =
+            """
                     The authenticated user does not have permission to
                     access this endpoint - Client not active in the system
                     """,
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "404",
-            description = "The resource is not found registered in the system",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "409",
-            description = "Conflict - Current account statement not allowed",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "502",
-            description =
-                "Unexpected response received from customer service - Validation error in system",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "503",
-            description = "The Customers service is currently unavailable.",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-      })
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "404",
+        description = "The resource is not found registered in the system",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "409",
+        description = "Conflict - Current account statement not allowed",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "502",
+        description =
+            "Unexpected response received from customer service - Validation error in system",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "503",
+        description = "The Customers service is currently unavailable.",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+  })
   @PostMapping
   public ResponseEntity<TransferResponse> transfer(
       @RequestBody @Valid TransferRequest request, Authentication auth) {

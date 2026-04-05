@@ -31,7 +31,7 @@ public class AccountPinSecurityRepositoryTest extends AbstractIntegrationTest {
     AccountEntity account = accountRepository.save(AccountDataProvider.createMockAccount());
 
     Optional<AccountPinSecurity> result =
-        accountPinSecurityRepository.findByAccount_Id(account.getId());
+        accountPinSecurityRepository.findByAccountId(account.getId());
 
     assertTrue(result.isPresent());
     assertEquals(account.getId(), result.get().getAccount().getId());
@@ -40,7 +40,7 @@ public class AccountPinSecurityRepositoryTest extends AbstractIntegrationTest {
   @Test
   void shouldReturnEmptyWhenAccountHasNoPinSecurity() {
     Optional<AccountPinSecurity> result =
-        accountPinSecurityRepository.findByAccount_Id(UUID.randomUUID());
+        accountPinSecurityRepository.findByAccountId(UUID.randomUUID());
 
     assertTrue(result.isEmpty());
   }
@@ -51,7 +51,7 @@ public class AccountPinSecurityRepositoryTest extends AbstractIntegrationTest {
     AccountEntity accountB = accountRepository.save(AccountDataProvider.createMockAccount());
 
     Optional<AccountPinSecurity> result =
-        accountPinSecurityRepository.findByAccount_Id(accountA.getId());
+        accountPinSecurityRepository.findByAccountId(accountA.getId());
 
     assertTrue(result.isPresent());
     assertNotEquals(accountB.getId(), result.get().getAccount().getId());

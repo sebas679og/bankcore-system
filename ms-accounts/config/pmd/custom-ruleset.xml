@@ -1,0 +1,139 @@
+<?xml version="1.0"?>
+<ruleset name="BankCore Custom PMD Ruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0
+                             https://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        Custom PMD ruleset for Spring Boot + JDK 17 microservices (BankCore).
+        Cubre: naming, clean code, logging, manejo de errores, complejidad,
+        performance, multithreading y seguridad.
+        Validado para PMD 7.17.0.
+    </description>
+    <!-- ================================================================== -->
+    <!--  NAMING & CONVENTIONS                                              -->
+    <!-- ================================================================== -->
+
+    <!-- Method, class, field, local variable, and parameter naming rules -->
+    <rule ref="category/java/codestyle.xml/MethodNamingConventions"/>
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions"/>
+    <rule ref="category/java/codestyle.xml/LocalVariableNamingConventions"/>
+    <rule ref="category/java/codestyle.xml/FieldNamingConventions"/>
+    <rule ref="category/java/codestyle.xml/FormalParameterNamingConventions"/>
+
+    <!-- ================================================================== -->
+    <!--  CLEAN CODE / DESIGN                                               -->
+    <!-- ================================================================== -->
+
+    <!-- Allow Spring config classes to look like utility classes -->
+    <rule ref="category/java/design.xml/UseUtilityClass">
+        <properties>
+            <property name="violationSuppressXPath"
+                      value="./ancestor-or-self::ClassDeclaration[
+                    pmd:hasAnnotation('org.springframework.boot.autoconfigure.SpringBootApplication')
+                    or pmd:hasAnnotation('org.springframework.context.annotation.Configuration')
+                    or pmd:hasAnnotation('org.springframework.context.annotation.Bean')
+                ]"/>
+        </properties>
+    </rule>
+
+    <!-- Avoid unnecessary constructors, empty control statements, duplicate literals -->
+    <rule ref="category/java/codestyle.xml/UnnecessaryConstructor"/>
+    <rule ref="category/java/codestyle.xml/EmptyControlStatement"/>
+    <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals">
+        <properties>
+            <property name="skipAnnotations" value="true"/>
+        </properties>
+    </rule>
+
+    <!-- Avoid reassigning parameters -->
+    <rule ref="category/java/bestpractices.xml/AvoidReassigningParameters"/>
+
+    <!-- Remove unused imports, fields, methods, parameters -->
+    <rule ref="category/java/codestyle.xml/UnnecessaryImport"/>
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateField"/>
+    <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod"/>
+    <rule ref="category/java/bestpractices.xml/UnusedFormalParameter"/>
+
+    <!-- ================================================================== -->
+    <!--  ERROR HANDLING                                                    -->
+    <!-- ================================================================== -->
+
+    <!-- Avoid catching generic exceptions and using exceptions as flow control -->
+    <rule ref="category/java/design.xml/AvoidCatchingGenericException"/>
+    <rule ref="category/java/design.xml/ExceptionAsFlowControl"/>
+
+    <!-- Ensure resources are closed; prefer try-with-resources -->
+    <rule ref="category/java/errorprone.xml/CloseResource">
+        <properties>
+            <property name="closeAsDefaultTarget" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/bestpractices.xml/UseTryWithResources"/>
+    <rule ref="category/java/bestpractices.xml/AvoidPrintStackTrace"/>
+    <rule ref="category/java/errorprone.xml/ReturnEmptyCollectionRatherThanNull"/>
+
+    <!-- ================================================================== -->
+    <!--  LOGGING                                                           -->
+    <!-- ================================================================== -->
+
+    <!-- Guard log statements; use Locale for string case conversion -->
+    <rule ref="category/java/bestpractices.xml/GuardLogStatement"/>
+    <rule ref="category/java/errorprone.xml/UseLocaleWithCaseConversions"/>
+
+    <!-- ================================================================== -->
+    <!--  PERFORMANCE / JDK 17                                             -->
+    <!-- ================================================================== -->
+
+    <!-- Avoid creating objects inside loops, use modern primitives, StringBuilder, safe varargs -->
+    <rule ref="category/java/performance.xml/AvoidInstantiatingObjectsInLoops"/>
+    <rule ref="category/java/bestpractices.xml/PrimitiveWrapperInstantiation"/>
+    <rule ref="category/java/performance.xml/StringInstantiation"/>
+    <rule ref="category/java/performance.xml/UseStringBufferForStringAppends"/>
+    <rule ref="category/java/errorprone.xml/UseEqualsToCompareStrings"/>
+    <rule ref="category/java/errorprone.xml/UselessPureMethodCall"/>
+    <rule ref="category/java/bestpractices.xml/UseVarargs"/>
+
+    <!-- ================================================================== -->
+    <!--  COMPLEXITY / MAINTAINABILITY                                      -->
+    <!-- ================================================================== -->
+
+    <rule ref="category/java/design.xml/CyclomaticComplexity">
+        <properties>
+            <property name="methodReportLevel" value="15"/>
+            <property name="classReportLevel" value="80"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/design.xml/NPathComplexity">
+        <properties>
+            <property name="reportLevel" value="200"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/design.xml/TooManyFields">
+        <properties>
+            <property name="maxfields" value="20"/>
+        </properties>
+    </rule>
+    <rule ref="category/java/design.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="15"/>
+        </properties>
+    </rule>
+
+    <!-- ================================================================== -->
+    <!--  MULTITHREADING                                                    -->
+    <!-- ================================================================== -->
+
+    <!-- Avoid broken patterns, unsafe maps, broad synchronization -->
+    <rule ref="category/java/multithreading.xml/DoubleCheckedLocking"/>
+    <rule ref="category/java/multithreading.xml/UseConcurrentHashMap"/>
+    <rule ref="category/java/multithreading.xml/AvoidSynchronizedAtMethodLevel"/>
+
+    <!-- ================================================================== -->
+    <!--  SECURITY                                                          -->
+    <!-- ================================================================== -->
+
+    <rule ref="category/java/errorprone.xml/DoNotTerminateVM"/>
+
+</ruleset>

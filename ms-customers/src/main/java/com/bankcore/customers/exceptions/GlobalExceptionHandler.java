@@ -92,8 +92,6 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(NoAuthoritiesException.class)
   public ResponseEntity<ErrorResponse> handleNoAuthoritiesException(NoAuthoritiesException ex) {
-    log.error("NoAuthoritiesException: {}", ex.getMessage());
-
     return buildErrorResponse(HttpStatus.FORBIDDEN, "Access denied");
   }
 
@@ -118,7 +116,6 @@ public class GlobalExceptionHandler {
    */
   @ExceptionHandler(AuthenticationException.class)
   public ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException ex) {
-    log.error("Authentication failed: {}", ex.getMessage());
     return buildErrorResponse(HttpStatus.UNAUTHORIZED, "Authentication failed.");
   }
 

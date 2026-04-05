@@ -2,10 +2,8 @@ package com.bankcore.customers.services;
 
 import com.bankcore.customers.exceptions.NoAuthoritiesException;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -102,17 +100,11 @@ public class JwtService {
     try {
       getClaims(token);
       return true;
-
-    } catch (ExpiredJwtException e) {
-      log.error("Expired token: {}", e.getMessage());
-    } catch (MalformedJwtException e) {
-      log.error("Malformed token: {}", e.getMessage());
-    } catch (IllegalArgumentException e) {
-      log.error("Token is empty or null: {}", e.getMessage());
-    } catch (Exception e) {
-      log.error("Token problem: {}", e.getMessage());
+    } catch (JwtException | IllegalArgumentException e) {
+      if (log.isWarnEnabled()) {
+        log.warn("Invalid token: {} - {}", e.getClass().getSimpleName(), e.getMessage());
+      }
     }
-
     return false;
   }
 

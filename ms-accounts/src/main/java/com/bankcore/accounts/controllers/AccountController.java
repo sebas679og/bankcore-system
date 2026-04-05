@@ -70,66 +70,64 @@ public class AccountController {
           @Content(
               mediaType = MediaType.APPLICATION_JSON_VALUE,
               schema = @Schema(implementation = AccountRegisterRequest.class)))
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "201",
-            description = "account registered successfully",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = AccountRegisterResponse.class))),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Validation error - Invalid input fields",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Authentication credentials were not provided or are invalid",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description =
-                "The authenticated user does not have permission to access this endpoint.",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "409",
-            description = "Conflict - alias already registered",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "422",
-            description = "Company policies - The request violates a company policy.",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "502",
-            description = "Unexpected response received from the Customers service",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "503",
-            description = "The Customers service is currently unavailable.",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-      })
+  @ApiResponses({
+    @ApiResponse(
+        responseCode = "201",
+        description = "account registered successfully",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = AccountRegisterResponse.class))),
+    @ApiResponse(
+        responseCode = "400",
+        description = "Validation error - Invalid input fields",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "401",
+        description = "Authentication credentials were not provided or are invalid",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "403",
+        description = "The authenticated user does not have permission to access this endpoint.",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "409",
+        description = "Conflict - alias already registered",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "422",
+        description = "Company policies - The request violates a company policy.",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "502",
+        description = "Unexpected response received from the Customers service",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "503",
+        description = "The Customers service is currently unavailable.",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+  })
   @PostMapping()
   public ResponseEntity<AccountRegisterResponse> registerAccount(
       @RequestBody @Valid AccountRegisterRequest request, Authentication auth) {
@@ -148,32 +146,30 @@ public class AccountController {
       summary = "View Customer accounts",
       description = "Returns the accounts of the authenticated CUSTOMER",
       security = @SecurityRequirement(name = "Security Token"))
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Accounts retrieved successfully",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    array =
-                        @ArraySchema(
-                            schema = @Schema(implementation = UserAccountResponse.class)))),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Customer is not authenticated",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Access denied — customer is inactive or does not have the required role",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = ErrorResponse.class))),
-      })
+  @ApiResponses({
+    @ApiResponse(
+        responseCode = "200",
+        description = "Accounts retrieved successfully",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                array =
+                    @ArraySchema(schema = @Schema(implementation = UserAccountResponse.class)))),
+    @ApiResponse(
+        responseCode = "401",
+        description = "Customer is not authenticated",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+    @ApiResponse(
+        responseCode = "403",
+        description = "Access denied — customer is inactive or does not have the required role",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = ErrorResponse.class))),
+  })
   @GetMapping
   public ResponseEntity<List<UserAccountResponse>> getCustomerAccounts(Authentication auth) {
     return ResponseEntity.status(HttpStatus.OK)
@@ -198,32 +194,31 @@ public class AccountController {
              belonging to the authenticated customer.
       """,
       security = @SecurityRequirement(name = "bearerAuth"))
-  @ApiResponses(
-      value = {
-        @ApiResponse(
-            responseCode = "200",
-            description = "Account details retrieved successfully",
-            content =
-                @Content(
-                    mediaType = MediaType.APPLICATION_JSON_VALUE,
-                    schema = @Schema(implementation = UserAccountDetailResponse.class))),
-        @ApiResponse(
-            responseCode = "400",
-            description = "Invalid account ID format",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
-        @ApiResponse(
-            responseCode = "401",
-            description = "Unauthorized - missing or invalid JWT token",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
-        @ApiResponse(
-            responseCode = "403",
-            description = "Forbidden - insufficient permissions to access this resource",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
-        @ApiResponse(
-            responseCode = "404",
-            description = "Account not found",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
-      })
+  @ApiResponses({
+    @ApiResponse(
+        responseCode = "200",
+        description = "Account details retrieved successfully",
+        content =
+            @Content(
+                mediaType = MediaType.APPLICATION_JSON_VALUE,
+                schema = @Schema(implementation = UserAccountDetailResponse.class))),
+    @ApiResponse(
+        responseCode = "400",
+        description = "Invalid account ID format",
+        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
+    @ApiResponse(
+        responseCode = "401",
+        description = "Unauthorized - missing or invalid JWT token",
+        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
+    @ApiResponse(
+        responseCode = "403",
+        description = "Forbidden - insufficient permissions to access this resource",
+        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)),
+    @ApiResponse(
+        responseCode = "404",
+        description = "Account not found",
+        content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE))
+  })
   @GetMapping("/{accountId}")
   public ResponseEntity<UserAccountDetailResponse> getAccountDetails(
       @Parameter(description = "Unique identifier of the account to retrieve", required = true)

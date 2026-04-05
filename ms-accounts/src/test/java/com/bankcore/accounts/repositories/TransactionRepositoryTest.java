@@ -39,7 +39,7 @@ public class TransactionRepositoryTest extends AbstractIntegrationTest {
     transactionRepository.save(newer);
 
     Optional<TransactionEntity> result =
-        transactionRepository.findTopByAccount_IdOrderByCreatedAtDesc(account.getId());
+        transactionRepository.findTopByAccountIdOrderByCreatedAtDesc(account.getId());
 
     assertTrue(result.isPresent());
     assertEquals(newer.getId(), result.get().getId());
@@ -50,7 +50,7 @@ public class TransactionRepositoryTest extends AbstractIntegrationTest {
     AccountEntity account = accountRepository.save(AccountDataProvider.createMockAccount());
 
     Optional<TransactionEntity> result =
-        transactionRepository.findTopByAccount_IdOrderByCreatedAtDesc(account.getId());
+        transactionRepository.findTopByAccountIdOrderByCreatedAtDesc(account.getId());
 
     assertTrue(result.isEmpty());
   }
@@ -68,7 +68,7 @@ public class TransactionRepositoryTest extends AbstractIntegrationTest {
     transactionRepository.save(txB);
 
     Optional<TransactionEntity> result =
-        transactionRepository.findTopByAccount_IdOrderByCreatedAtDesc(accountA.getId());
+        transactionRepository.findTopByAccountIdOrderByCreatedAtDesc(accountA.getId());
 
     assertTrue(result.isPresent());
     assertEquals(txA.getId(), result.get().getId());

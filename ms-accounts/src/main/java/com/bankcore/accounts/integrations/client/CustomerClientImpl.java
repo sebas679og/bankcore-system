@@ -121,11 +121,13 @@ public class CustomerClientImpl implements CustomerClient {
                     .defaultIfEmpty("No body")
                     .flatMap(
                         body -> {
-                          log.error(
-                              "Customer Service 4xx error. ID: {}, Status: {}, Body: {}",
-                              customerId,
-                              response.statusCode(),
-                              body);
+                          if (log.isErrorEnabled()) {
+                            log.error(
+                                "Customer Service 4xx error. ID: {}, Status: {}, Body: {}",
+                                customerId,
+                                response.statusCode(),
+                                body);
+                          }
                           return Mono.error(
                               new CustomInternalServiceException(
                                   "Customer Service rejected the request"));
@@ -138,11 +140,13 @@ public class CustomerClientImpl implements CustomerClient {
                     .defaultIfEmpty("No body")
                     .flatMap(
                         body -> {
-                          log.error(
-                              "Customer Service 5xx error. ID: {}, Status: {}, Body: {}",
-                              customerId,
-                              response.statusCode(),
-                              body);
+                          if (log.isErrorEnabled()) {
+                            log.error(
+                                "Customer Service 5xx error. ID: {}, Status: {}, Body: {}",
+                                customerId,
+                                response.statusCode(),
+                                body);
+                          }
                           return Mono.error(
                               new CustomExternalServiceException(
                                   "Customer Service is unavailable"));

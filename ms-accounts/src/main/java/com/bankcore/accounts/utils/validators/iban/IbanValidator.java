@@ -4,6 +4,7 @@ import com.bankcore.accounts.utils.IbanUtils;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.math.BigInteger;
+import java.util.Locale;
 
 /**
  * Validator for Spanish International Bank Account Numbers (IBAN).
@@ -49,7 +50,7 @@ public class IbanValidator implements ConstraintValidator<ValidIban, String> {
       return false;
     }
 
-    String normalized = iban.trim().toUpperCase().replaceAll("\\s+", "");
+    String normalized = iban.trim().toUpperCase(Locale.ROOT).replaceAll("\\s+", "");
 
     if (normalized.length() != IBAN_ES_LENGTH) {
       return false;

@@ -36,7 +36,7 @@ public interface TransactionRepository
    * @return an {@link Optional} containing the latest {@link TransactionEntity}, or empty if no
    *     transactions exist for the given account
    */
-  Optional<TransactionEntity> findTopByAccount_IdOrderByCreatedAtDesc(UUID accountId);
+  Optional<TransactionEntity> findTopByAccountIdOrderByCreatedAtDesc(UUID accountId);
 
   /**
    * Calculates the total amount of completed withdrawals for a specific account since a given time.

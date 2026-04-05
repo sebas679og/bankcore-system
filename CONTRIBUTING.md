@@ -127,12 +127,20 @@ Verifica que el código cumple con reglas de estilo y buenas prácticas predefin
 
 > Si `checkstyle:check` falla, el PR también será rechazado. Asegúrate de corregir los errores reportados antes de hacer push.
 
-### Ejecutar solo las pruebas
-
-Corre las pruebas omitiendo la verificación de Spotless y Checkstyle:
+Verifica que el código cumpla con un análisis de código estatico examinando problemas de calidad, errores comunas y malas prácticas:
 
 ```bash
-./mvnw -B clean verify "-Dspotless.check.skip=true" "-Dcheckstyle.skip=true"
+./mvnw pmd:check
+```
+
+> Si `pmd:check` falla, el PR también será rechazado. Asegúrate de corregir los errores reportados antes de hacer push.
+
+### Ejecutar solo las pruebas
+
+Corre las pruebas omitiendo la verificación de Spotless, Checkstyle y PMD:
+
+```bash
+./mvnw -B clean verify "-Dspotless.check.skip=true" "-Dcheckstyle.skip=true" "-Dpmd.skip=true"
 ```
 
 ### Linters + pruebas juntos

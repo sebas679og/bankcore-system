@@ -261,7 +261,7 @@ public class AccountManagementImplTest {
 
     when(accountRepository.findByIdAndCustomerId(accountId, customerId))
         .thenReturn(Optional.of(mockAccount));
-    when(transactionRepository.findTopByAccount_IdOrderByCreatedAtDesc(accountId))
+    when(transactionRepository.findTopByAccountIdOrderByCreatedAtDesc(accountId))
         .thenReturn(Optional.empty());
     when(accountMapper.toDetailResponse(mockAccount, null)).thenReturn(detailResponse);
 
@@ -272,7 +272,7 @@ public class AccountManagementImplTest {
     assertThat(result.getAccountNumber()).isEqualTo(mockAccount.getAccountNumber());
     assertThat(result.getLastTransactionAt()).isNull();
     verify(accountRepository).findByIdAndCustomerId(accountId, customerId);
-    verify(transactionRepository).findTopByAccount_IdOrderByCreatedAtDesc(accountId);
+    verify(transactionRepository).findTopByAccountIdOrderByCreatedAtDesc(accountId);
     verify(accountMapper).toDetailResponse(mockAccount, null);
   }
 
@@ -306,7 +306,7 @@ public class AccountManagementImplTest {
 
     when(accountRepository.findByIdAndCustomerId(accountId, customerId))
         .thenReturn(Optional.of(mockAccount));
-    when(transactionRepository.findTopByAccount_IdOrderByCreatedAtDesc(accountId))
+    when(transactionRepository.findTopByAccountIdOrderByCreatedAtDesc(accountId))
         .thenReturn(Optional.of(mockTransaction));
     when(accountMapper.toDetailResponse(mockAccount, lastTransactionAt)).thenReturn(detailResponse);
 
@@ -315,7 +315,7 @@ public class AccountManagementImplTest {
     assertThat(result).isNotNull();
     assertThat(result.getLastTransactionAt()).isEqualTo(lastTransactionAt);
     verify(accountRepository).findByIdAndCustomerId(accountId, customerId);
-    verify(transactionRepository).findTopByAccount_IdOrderByCreatedAtDesc(accountId);
+    verify(transactionRepository).findTopByAccountIdOrderByCreatedAtDesc(accountId);
     verify(accountMapper).toDetailResponse(mockAccount, lastTransactionAt);
   }
 
@@ -331,7 +331,7 @@ public class AccountManagementImplTest {
     assertThatThrownBy(() -> accountManagement.getAccountDetails(accountId, customerId))
         .isInstanceOf(AccountNotFoundException.class);
 
-    verify(transactionRepository, never()).findTopByAccount_IdOrderByCreatedAtDesc(any());
+    verify(transactionRepository, never()).findTopByAccountIdOrderByCreatedAtDesc(any());
     verify(accountMapper, never()).toDetailResponse(any(), any());
   }
 
@@ -348,7 +348,7 @@ public class AccountManagementImplTest {
     assertThatThrownBy(() -> accountManagement.getAccountDetails(accountId, anotherCustomerId))
         .isInstanceOf(AccountNotFoundException.class);
 
-    verify(transactionRepository, never()).findTopByAccount_IdOrderByCreatedAtDesc(any());
+    verify(transactionRepository, never()).findTopByAccountIdOrderByCreatedAtDesc(any());
     verify(accountMapper, never()).toDetailResponse(any(), any());
   }
 }
