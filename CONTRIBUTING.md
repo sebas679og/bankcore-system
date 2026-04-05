@@ -98,6 +98,63 @@ docs: actualizar variables de entorno en README
 
 ---
 
+## Linters y pruebas
+
+Antes de abrir cualquier PR es **obligatorio** ejecutar Spotless en local para garantizar que el código cumple con el estilo definido en el proyecto.
+Recuerde que para aplicar las validaciones debe ir al directorio del microservicio afectado (`ms-customers` o `ms-accounts`) y ejecutar los comandos desde ahí.
+
+### Spotless (formateo de código)
+
+Aplica el formatter automáticamente — **paso obligatorio antes de todo PR**:
+
+```bash
+./mvnw spotless:apply
+```
+
+Verifica que el código ya cumple con el formato sin modificarlo:
+
+```bash
+./mvnw spotless:check
+```
+
+> Si `spotless:check` falla en el pipeline, el PR será rechazado. Ejecuta siempre `spotless:apply` antes de hacer push para evitarlo.
+
+Verifica que el código cumple con reglas de estilo y buenas prácticas predefinidas:
+
+```bash
+./mvnw checkstyle:check
+```
+
+> Si `checkstyle:check` falla, el PR también será rechazado. Asegúrate de corregir los errores reportados antes de hacer push.
+
+Verifica que el código cumpla con un análisis de código estatico examinando problemas de calidad, errores comunas y malas prácticas:
+
+```bash
+./mvnw pmd:check
+```
+
+> Si `pmd:check` falla, el PR también será rechazado. Asegúrate de corregir los errores reportados antes de hacer push.
+
+### Ejecutar solo las pruebas
+
+Corre las pruebas omitiendo la verificación de Spotless, Checkstyle y PMD:
+
+```bash
+./mvnw -B clean verify "-Dspotless.check.skip=true" "-Dcheckstyle.skip=true" "-Dpmd.skip=true"
+```
+
+### Linters + pruebas juntos
+
+Ejecuta el formatter y las pruebas en un solo paso:
+
+```bash
+./mvnw -B clean verify
+```
+
+> Se recomienda correr este comando antes de cada PR para confirmar que tanto el estilo como las pruebas pasan correctamente.
+
+---
+
 ## Pull Requests
 
 ### Desde `feat/` hacia `dev`
@@ -109,14 +166,37 @@ git fetch origin
 git rebase origin/dev
 ```
 
-2. Abre el PR en GitHub apuntando a `dev`.
-3. El título del PR debe seguir el mismo formato que los commits.
-4. Describe brevemente qué cambia y por qué.
-5. Asigna al menos un reviewer del equipo.
+2. Ejecuta linters y pruebas localmente (ver sección anterior) antes de abrir el PR.
+3. Abre el PR en GitHub apuntando a `dev`.
+4. El título del PR debe seguir el mismo formato que los commits.
+5. Describe brevemente qué cambia y por qué.
+6. Asigna al menos un reviewer del equipo.
 
 ### Desde `dev` hacia `main`
 
 Solo los mantenedores del proyecto abren PRs de `dev` a `main`. Al mergearse, el workflow de GitHub Actions construye y publica las imágenes Docker automáticamente.
+
+---
+
+## Versionado
+
+El proyecto sigue [Semantic Versioning](https://semver.org/). Antes de abrir un PR, actualiza la versión en el `pom.xml` del microservicio afectado de acuerdo con el tipo de cambio:
+
+| Tipo de cambio | Bump | Ejemplo |
+|---|---|---|
+| Corrección de bug | Patch | `0.1.0 → 0.1.1` |
+| Nueva funcionalidad | Minor | `0.1.0 → 0.2.0` |
+| Cambio que rompe compatibilidad | Major | `0.1.0 → 1.0.0` |
+
+Para actualizar la versión usa el plugin de Maven:
+
+```bash
+./mvnw versions:set "-DnewVersion=0.2.0" "-DgenerateBackupPoms=false"
+git add pom.xml
+git commit -m "chore: bump version to 0.2.0"
+```
+
+> Este paso asegura que las imágenes Docker publicadas en el registry reflejen siempre la versión correcta del servicio.
 
 ---
 
@@ -127,7 +207,7 @@ El workflow `.github/workflows/docker-build-push.yml` se dispara con cada push a
 1. Build y push de `ms-customers` al registry
 2. Build y push de `ms-accounts` al registry (requiere que el paso anterior haya terminado)
 
-Las imágenes se publican con dos tags: `:latest` y `:<git-sha-corto>`.
+Las imágenes se publican con dos tags: `:latest` y `:<version> (e.g. 0.7.1)`.
 
 ---
 
@@ -137,6 +217,7 @@ Las imágenes se publican con dos tags: `:latest` y `:<git-sha-corto>`.
 bankcore-system/
 ├── .github/
 │   └── workflows/                  # Pipelines de CI/CD
+│       ├── code-quality.yml   
 │       ├── docker-build-push.yml   
 │       └── run-tes.yml
 ├── docs/

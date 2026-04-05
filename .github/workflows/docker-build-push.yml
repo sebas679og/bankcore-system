@@ -1,4 +1,4 @@
-name: Docker Build & Push
+name: Docker Build & Push Bankcore Systems
 
 on:
   push:
@@ -7,6 +7,8 @@ on:
 env:
   REGISTRY: docker.io
   IMAGE_PREFIX: ${{ secrets.DOCKERHUB_USERNAME }}
+  # Directive that forces the use of Node 24 in the actions to avoid deprecations.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build-customers:
@@ -26,9 +28,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set short SHA
+      - name: Get version from pom.xml
         id: vars
-        run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+        working-directory: ./ms-customers
+        run: |
+          chmod +x mvnw 2>/dev/null || true
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout 2>/dev/null)
+          if [ -z "$VERSION" ]; then
+          echo "ERROR: Could not extract version from pom.xml"
+          exit 1
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
 
       - name: Build & push ms-customers
         uses: docker/build-push-action@v6
@@ -38,12 +49,12 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_PREFIX }}/ms-customers:latest
-            ${{ env.IMAGE_PREFIX }}/ms-customers:${{ steps.vars.outputs.short_sha }}
+            ${{ env.IMAGE_PREFIX }}/ms-customers:${{ steps.vars.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
             BUILD_DATE=${{ github.event.head_commit.timestamp }}
-            BUILD_VERSION=${{ steps.vars.outputs.short_sha }}
+            BUILD_VERSION=${{ steps.vars.outputs.version }}
             IMAGE_DESCRIPTION=Microservice responsible for client management and validations consumed by ms-accounts
 
   build-accounts:
@@ -64,9 +75,18 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set short SHA
+      - name: Get version from pom.xml
         id: vars
-        run: echo "short_sha=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+        working-directory: ./ms-accounts
+        run: |
+          chmod +x mvnw 2>/dev/null || true
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout 2>/dev/null)
+          if [ -z "$VERSION" ]; then
+          echo "ERROR: Could not extract version from pom.xml"
+          exit 1
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
 
       - name: Build & push ms-accounts
         uses: docker/build-push-action@v6
@@ -76,10 +96,10 @@ jobs:
           push: true
           tags: |
             ${{ env.IMAGE_PREFIX }}/ms-accounts:latest
-            ${{ env.IMAGE_PREFIX }}/ms-accounts:${{ steps.vars.outputs.short_sha }}
+            ${{ env.IMAGE_PREFIX }}/ms-accounts:${{ steps.vars.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
             BUILD_DATE=${{ github.event.head_commit.timestamp }}
-            BUILD_VERSION=${{ steps.vars.outputs.short_sha }}
+            BUILD_VERSION=${{ steps.vars.outputs.version }}
             IMAGE_DESCRIPTION=Microservice in charge of account management
